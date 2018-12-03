@@ -42,7 +42,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/IndoorscapeAlbumPlugin.jar')
     compile files('libs/BaiduLBS_Android.jar')
-    compile project(':openCVLibrary2411')
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.android.support:recyclerview-v7:25.1.0'

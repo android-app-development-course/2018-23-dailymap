@@ -45,16 +45,6 @@ import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 
-import org.opencv.android.BaseLoaderCallback;
-import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.LoaderCallbackInterface;
-import org.opencv.core.Core;
-import org.opencv.core.CvType;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
-import org.opencv.core.Point;
-import org.opencv.core.Scalar;
-import org.opencv.imgproc.Imgproc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,8 +97,6 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     private ArrayList<String> adapterlist;
     private Spinner spinner;
 
-//缓存相机每帧输入的数据
-    private Mat mRgba;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
