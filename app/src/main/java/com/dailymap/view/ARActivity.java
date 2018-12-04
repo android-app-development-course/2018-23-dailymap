@@ -51,7 +51,7 @@ import java.util.List;
 
 
 /**
- * ARActivity为主要界面，其他的为附加功能
+ * ARActivity为主要界面
  *
  *
  *
