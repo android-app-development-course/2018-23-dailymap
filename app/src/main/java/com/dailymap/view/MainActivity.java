@@ -1,8 +1,10 @@
 package com.dailymap.view;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.ashokvarma.bottomnavigation.TextBadgeItem;
@@ -15,7 +17,6 @@ import com.dailymap.pages.TravelNoteFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewPager)
     protected ViewPager viewPager;
 
-    private List<android.support.v4.app.Fragment> mFragments;
+    private List<Fragment> mFragments;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
