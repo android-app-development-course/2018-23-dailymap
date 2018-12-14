@@ -17,7 +17,7 @@
                     android:layout_gravity="left|top"
                     android:id="@+id/backtodaily"/>
         </LinearLayout>
-        <com.dailymap.view.RoundImageView
+        <com.dailymap.definedview.RoundImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"

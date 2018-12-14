@@ -1,4 +1,4 @@
-package com.dailymap.view;
+package com.dailymap.definedview;
 
 import android.content.Context;
 import android.content.res.TypedArray;

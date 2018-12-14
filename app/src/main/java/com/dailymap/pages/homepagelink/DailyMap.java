@@ -1,4 +1,4 @@
-package com.dailymap.view;
+package com.dailymap.pages.homepagelink;
 
 import android.content.Intent;
 import android.graphics.Point;
@@ -46,6 +46,12 @@ import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
+import com.dailymap.view.ARActivity;
+import com.dailymap.view.FlagsInfo;
+import com.dailymap.view.FootsInfo;
+import com.dailymap.view.MoreFunction;
+import com.dailymap.view.Mylocationlistener;
+import com.dailymap.view.TopView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -338,7 +344,7 @@ BDlocationinit();
 
             }
         });
-        location=ARActivity.bdLocation;
+        location= ARActivity.bdLocation;
         //设置推荐监听
         mSuggestionSearch.setOnGetSuggestionResultListener(listener);
     }

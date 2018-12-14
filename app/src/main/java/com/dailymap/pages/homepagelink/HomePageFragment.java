@@ -15,13 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dailymap.R;
 import com.dailymap.view.ARActivity;
-import com.dailymap.view.DailyMap;
 import com.dailymap.view.Login_regis;
-import com.dailymap.view.MainActivity;
+
+import butterknife.BindView;
 
 /**
  * “首页” 页面
@@ -31,6 +30,8 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     private Button btn_map;
     private ImageView imageView;
     private ImageView arcamera;
+    @BindView(R.id.btn_story)
+    protected Button btn_story;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
@@ -51,6 +52,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     private void initView(View view)
     {
         btn_map = (Button) view.findViewById(R.id.btn_map);
+        btn_story = (Button) view.findViewById(R.id.btn_story);
         btn_map.setOnClickListener(this);
         imageView=(ImageView)view.findViewById(R.id.imageView);
         imageView.setOnClickListener(this);
@@ -60,6 +62,13 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
             public void onClick(View view) {
                 Intent intent=new Intent(getContext(), ARActivity.class);
                 startActivityForResult(intent,101);
+            }
+        });
+        btn_story.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), Story.class);
+                startActivityForResult(intent,100);
             }
         });
 

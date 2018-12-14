@@ -7,6 +7,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
+import com.dailymap.pages.homepagelink.DailyMap;
 
 import java.util.List;
 

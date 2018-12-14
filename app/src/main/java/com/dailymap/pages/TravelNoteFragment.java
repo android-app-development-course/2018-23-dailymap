@@ -1,6 +1,5 @@
 package com.dailymap.pages;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,10 +10,8 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 
 import com.dailymap.R;
-import com.dailymap.view.DailyMap;
 
 public class TravelNoteFragment extends Fragment {
 

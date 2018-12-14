@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.dailymap.R;
+import com.dailymap.pages.homepagelink.DailyMap;
 
 //为弹出来显示里程数的popupwindow
 public class TopView {

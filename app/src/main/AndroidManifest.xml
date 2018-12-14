@@ -37,7 +37,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="A8aKUXap2b6ELN7faYdlc4KkYAsqQwpp" />
 
-        <activity android:name=".view.ARActivity"></activity>
+        <activity android:name=".view.ARActivity" />
         <activity android:name=".view.Login_regis" />
 
         <service
@@ -45,7 +45,7 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".view.DailyMap" />
+        <activity android:name=".pages.homepagelink.DailyMap" />
         <activity android:name=".view.FlagsInfo" />
         <activity android:name=".view.FootsInfo" />
         <activity android:name=".view.MoreFunction" />
@@ -56,7 +56,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MinePage"></activity>
+        <activity android:name=".view.MinePage" />
+        <activity android:name=".pages.homepagelink.Story"></activity>
     </application>
 
 </manifest>

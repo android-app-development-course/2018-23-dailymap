@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dailymap.R;
+import com.dailymap.definedview.MyImageView;
+import com.dailymap.definedview.RoundImageView;
 
 import java.util.ArrayList;
 

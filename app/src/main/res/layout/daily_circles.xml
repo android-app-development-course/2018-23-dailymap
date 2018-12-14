@@ -43,7 +43,7 @@
                         android:layout_marginLeft="170dp"
                         android:background="@drawable/add"/>
 
-                    <com.dailymap.view.RoundImageView
+                    <com.dailymap.definedview.RoundImageView
                         android:layout_width="80dp"
                         android:layout_height="100dp"
                         android:src="@drawable/user_phpto"

@@ -44,10 +44,10 @@ import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.dailymap.pages.homepagelink.DailyMap;
 
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**

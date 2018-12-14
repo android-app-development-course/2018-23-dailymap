@@ -14,7 +14,7 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:background="@color/colorWhite">
-        <com.dailymap.view.RoundImageView
+        <com.dailymap.definedview.RoundImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/user_phpto"

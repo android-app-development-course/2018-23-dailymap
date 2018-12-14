@@ -14,7 +14,7 @@
         android:layout_alignParentRight="true"
         android:paddingRight="10dp"
         android:id="@+id/arcamera"/>
-    <com.dailymap.view.RoundImageView
+    <com.dailymap.definedview.RoundImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
