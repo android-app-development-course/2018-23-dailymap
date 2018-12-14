@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.FootsInfo"
-    android:background="@drawable/footinfoback">
+    tools:context=".FootsInfo">
 
     <!-- 顶部添加文字 -->
     <RelativeLayout
@@ -20,6 +19,7 @@
             android:layout_height="wrap_content"
             android:textSize="25sp"
             android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
             android:text="足迹详情"
             android:background="#80FFFFFF"/>
     </RelativeLayout>
@@ -28,21 +28,32 @@
         android:id="@+id/Layout_bottom"
         android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:gravity="center" >
+        android:layout_marginTop="15dp"
+        android:layout_height="50dp" >
+
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="fill_parent"
-            android:textSize="20sp"
-            android:text="保存修改" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="189dp"
+            android:background="@drawable/bt_style"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="保存并发布"
+            android:textSize="20sp" />
         <Button
             android:id="@+id/button2"
-            android:layout_width="50dp"
+            android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_toRightOf="@+id/button1"
+            android:layout_marginLeft="80dp"
             android:textSize="20sp"
-            android:background="@drawable/cancel"/>
+            android:text="取消"
+            android:textColor="@color/colorPrimary"
+            android:background="@drawable/bt_style_regi"/>
     </RelativeLayout>
     <!-- 显示图片 -->
     <RelativeLayout
@@ -60,6 +71,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#075284"
                 android:text="地点详情"/>
             <!-- 设置运行多行 设置圆角图形 黑色字体-->
 
@@ -71,7 +83,7 @@
                 android:layout_margin="12dp"
                 android:textSize="20sp"
                 android:hint="记录你旅行的感受..."
-                android:textColorHint="@color/colorBlack"
+                android:textColorHint="@color/colorPrimaryDark"
                 android:maxLength="500"
                 android:singleLine="false"
                 android:background="@drawable/textview_border"
