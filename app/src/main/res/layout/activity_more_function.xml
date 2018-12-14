@@ -1,7 +1,7 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
 
@@ -11,15 +11,41 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
     </android.support.v4.view.ViewPager>
+
     <LinearLayout
-        android:paddingTop="10dp"
-        android:background="#ffffff"
-        android:orientation="horizontal"
-        android:id="@+id/rg"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:background="#68aecf"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="456dp">
+
         <LinearLayout
             android:id="@+id/ll_home"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.dailymap.view.MyImageView
+                android:layout_gravity="center"
+                android:id="@+id/iv0"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/find"
+                />
+            <TextView
+                android:gravity="center"
+                android:text="首页"
+                android:textColor="#ffffff"
+                android:button="@null"
+                android:id="@+id/rb0"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_circle"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -29,11 +55,12 @@
                 android:id="@+id/iv1"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-
+                android:src="@drawable/message"
                 />
             <TextView
                 android:gravity="center"
-                android:text="旅游资讯"
+                android:text="狸友圈"
+                android:textColor="#ffffff"
                 android:button="@null"
                 android:id="@+id/rb1"
                 android:layout_width="match_parent"
@@ -49,11 +76,13 @@
                 android:layout_gravity="center"
                 android:id="@+id/iv2"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                android:src="@drawable/search"/>
             <TextView
                 android:gravity="center"
-                android:text="呆狸圈"
+                android:text="游记"
                 android:button="@null"
+                android:textColor="#ffffff"
                 android:id="@+id/rb2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
@@ -68,15 +97,18 @@
                 android:layout_gravity="center"
                 android:id="@+id/iv3"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                android:src="@drawable/user"/>
             <TextView
                 android:gravity="center"
-                android:text="我"
+                android:text="我的"
                 android:button="@null"
                 android:id="@+id/rb3"
                 android:layout_width="match_parent"
+                android:textColor="#ffffff"
                 android:layout_height="match_parent"/>
         </LinearLayout>
+
 
     </LinearLayout>
 
