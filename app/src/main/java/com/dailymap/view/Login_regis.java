@@ -1,12 +1,15 @@
 package com.dailymap.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dailymap.R;
+import com.dailymap.model.network.RegisterResponseInfo;
+import com.dailymap.network.SendMessageManager;
 import com.dailymap.utils.HttpUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +46,8 @@ public class Login_regis extends AppCompatActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
+
+        EventBus.getDefault().register(this);
         password_confirm=(EditText)findViewById(R.id.confirm_password);
         number_text=(EditText)findViewById(R.id.number_text);
         log_regi_trans=(TextView)findViewById(R.id.log_regi_trans);
@@ -83,6 +94,22 @@ public class Login_regis extends AppCompatActivity {
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(RegisterResponseInfo messageEvent) {
+        //Toast.makeText(this, messageEvent.getError(), Toast.LENGTH_SHORT).show();
+        if (messageEvent.getError().equals("true")){
+            Toast.makeText(this, "注册成功，欢迎！", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+    }
+
     private void register() {
 
         if (username.getText().toString().isEmpty()){
@@ -105,8 +132,11 @@ public class Login_regis extends AppCompatActivity {
             Toast.makeText(Login_regis.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
             return;
         }
-        HttpUtils.PATH="http://192.168.123.234:8080/LittleTest/register";
+       /* HttpUtils.PATH="http://192.168.123.234:8080/LittleTest/register";
         loginHandle(username.getText().toString(), password.getText().toString());
+*/
+        SendMessageManager.getInstance().getRegisterStatus("nan","nanshan","","","","","");
+
     }
 
 

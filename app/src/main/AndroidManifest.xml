@@ -57,7 +57,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.MinePage" />
-        <activity android:name=".pages.homepagelink.Story"></activity>
+        <activity android:name=".pages.homepagelink.Story" />
+        <activity android:name=".view.StoryPlay"></activity>
     </application>
 
 </manifest>
