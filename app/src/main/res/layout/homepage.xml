@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    tools:context=".view.MainActivity"
+    android:paddingTop="20dp">
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -40,14 +41,10 @@
             android:layout_height="wrap_content"
             android:text="235"
             android:textSize="20dp" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="粉丝"
-            android:textSize="15dp"
-            android:background="#ffffff"
-            android:textStyle="bold"
-            />
+       <TextView
+           android:layout_width="30dp"
+           android:layout_height="30dp"
+           android:text="粉丝"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -64,80 +61,44 @@
             android:layout_height="wrap_content"
             android:text="235"
             android:textSize="20dp" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="关注"
-            android:textSize="15dp"
-            android:background="#ffffff"
-            android:textStyle="bold"
-            />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="关注"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="130dp"
-        android:orientation="horizontal"
-        android:layout_above="@id/funtion"
-
-        >
-
-        <Button
-            android:id="@+id/btn_memory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/darkshape"
-            android:text="回忆录"
-            android:textColor="#f3fafa"
-            android:textStyle="bold"/>
-
-        <Button
-            android:id="@+id/btn_myself"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/lightshape"
-            android:text="个人信息"
-            android:textColor="#68aecf"
-            android:textStyle="bold"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp"
-        android:id="@+id/funtion">
-
-
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_marginTop="130dp"
+            android:orientation="horizontal"
+            android:layout_above="@id/funtion"
+
+            >
+
             <Button
-                android:id="@+id/btn_story"
-                android:layout_width="160dp"
-                android:layout_height="120dp"
-                android:background="@drawable/lightshape"
-                android:text="故事"
-                android:textColor="#68aecf"
-                android:textSize="30dp"
-                android:textStyle="bold"
+                android:id="@+id/btn_memory"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="10dp"/>
-            <Button
-                android:id="@+id/btn_map"
-                android:layout_width="160dp"
-                android:layout_height="120dp"
                 android:background="@drawable/darkshape"
-                android:text="地图"
+                android:text="回忆录"
                 android:textColor="#f3fafa"
-                android:textSize="30dp"
-                android:textStyle="bold"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btn_myself"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginRight="10dp"/>
+                android:background="@drawable/lightshape"
+                android:text="个人信息"
+                android:textColor="#68aecf"
+                android:textStyle="bold"/>
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"
@@ -146,30 +107,71 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/btn_recommand"
-                android:layout_width="160dp"
-                android:layout_height="120dp"
-                android:background="@drawable/darkshape"
-                android:text="路线推荐"
-                android:textColor="#f3fafa"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"/>
-            <Button
-                android:id="@+id/btn_analysis"
-                android:layout_width="160dp"
-                android:layout_height="120dp"
-                android:background="@drawable/lightshape"
-                android:text="旅行分析"
-                android:textColor="#68aecf"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                />
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/funtion">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_story"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/lightshape"
+                    android:text="故事"
+                    android:textColor="#68aecf"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"/>
+                <Button
+                    android:id="@+id/btn_map"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/darkshape"
+                    android:text="地图"
+                    android:textColor="#f3fafa"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:layout_marginRight="10dp"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:visibility="invisible"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/btn_recommand"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/darkshape"
+                    android:text="路线推荐"
+                    android:textColor="#f3fafa"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/btn_analysis"
+                    android:layout_width="160dp"
+                    android:layout_height="120dp"
+                    android:background="@drawable/lightshape"
+                    android:text="旅行分析"
+                    android:textColor="#68aecf"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

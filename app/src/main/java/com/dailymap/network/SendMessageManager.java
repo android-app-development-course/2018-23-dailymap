@@ -33,7 +33,7 @@ public class SendMessageManager
 
     /**
      * 发送“获取用户登录状态”的消息
-     * @param email
+     * @param username
      * @param password
      */
     public void getLoginStatus(String username, String password)

@@ -258,7 +258,7 @@ BDlocationinit();
         trainfotitleinit();
 
         //获取用户的marker信息
-        markerinfoinit();
+       // markerinfoinit();
 //定位
         MapStatus.Builder builder = new MapStatus.Builder();
         /*LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());

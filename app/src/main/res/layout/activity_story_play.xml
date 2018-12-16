@@ -10,7 +10,8 @@
         android:layout_height="match_parent"
         android:text="2018/12/15  北京"
         android:gravity="center"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:id="@+id/tra_info_play"/>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

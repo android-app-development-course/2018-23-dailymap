@@ -9,15 +9,13 @@ public class RegisterResponseInfo extends BaseResponseInfo
     /**
      * 注册状态，error = true表示注册成功，error = false 表示注册失败
      */
-    public String error;
+    public String result;
 
-    public String getError()
-    {
-        return error;
+    public String getResult() {
+        return result;
     }
 
-    public void setError(String error)
-    {
-        this.error = error;
+    public void setResult(String result) {
+        this.result = result;
     }
 }

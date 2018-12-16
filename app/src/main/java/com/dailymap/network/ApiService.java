@@ -29,14 +29,18 @@ public interface ApiService
 
     /**
      * 获取用户注册状态
-     * @param username
-     * @param email
+     * @param name
      * @param password
+     * @param phone_num
+     * @param user_intro
+     * @param user_sex
+     *  @param user_city
+     * @param user_email
      * @return
      */
     @FormUrlEncoded
     @POST("RegisterUser")
-    Observable<RegisterResponseInfo> getRegisterStatus(@Field("name") String username, @Field("password") String password,
+    Observable<RegisterResponseInfo> getRegisterStatus(@Field("name") String name, @Field("password") String password,
                                                        @Field("phone_num") String phone_num,@Field("user_intro") String user_intro,@Field("user_sex") String user_sex,@Field("user_city") String user_city,@Field("user_email") String user_email);
 
     /**

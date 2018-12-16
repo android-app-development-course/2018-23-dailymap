@@ -97,7 +97,7 @@ public class Login_regis extends AppCompatActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(RegisterResponseInfo messageEvent) {
         //Toast.makeText(this, messageEvent.getError(), Toast.LENGTH_SHORT).show();
-        if (messageEvent.getError().equals("true")){
+        if (messageEvent.getResult().equals("successful")){
             Toast.makeText(this, "注册成功，欢迎！", Toast.LENGTH_SHORT).show();
         }
     }
