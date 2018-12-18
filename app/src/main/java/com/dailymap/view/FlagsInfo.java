@@ -17,6 +17,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.dailymap.R;
 import com.dailymap.constant.Constants;
+import com.dailymap.model.network.BaseResponseInfo;
 import com.dailymap.model.network.Destination;
 import com.dailymap.model.network.DestinationResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
@@ -88,7 +89,9 @@ private String marker_id;
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(RegisterResponseInfo messageEvent) {
         String marker_id=messageEvent.getResult();
-
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event1(BaseResponseInfo messageEvent) {
 
     }
 
@@ -99,38 +102,9 @@ private String marker_id;
             EventBus.getDefault().unregister(this);
     }
 
-    public String streampost(String latitude, String longitude) {
-        URL infoUrl = null;
-
-//        String remote_addr="http://api.weatherdt.com/common/?area="+citycode+"&type="+datacode+"&key=90d48635e440fc4c032e4f5b5b11e996";
-        String remote_addr="http://api.map.baidu.com/geocoder/v2/?callback=renderReverse&location=35.658651,139.745415&output=json&pois=1&ak=md2H7GauTf9yNE2yrDaWNt83e9unmoaB&mcode=6A:EA:FB:A8:01:0B:AA:41:22:50:EC:1D:D8:A5:96:D2:EF:3A:68:BD";
-        try {
-            infoUrl = new URL(remote_addr);
-            URLConnection connection = infoUrl.openConnection();
-            HttpURLConnection httpconnection = (HttpURLConnection) connection;
-            httpconnection.setRequestMethod("GET");
-            httpconnection.setReadTimeout(5000);
-            InputStream inStream = httpconnection.getInputStream();
-            ByteArrayOutputStream data = new ByteArrayOutputStream();
-
-            byte[] buffer = new byte[1000];
-            int len = 0;
-            while ((len = inStream.read(buffer)) != -1) {
-                data.write(buffer, 0, len);
-            }
-            inStream.close();
-            String test=new String(data.toByteArray(), "utf-8");
-            Log.i("test",test);
-            return new String(data.toByteArray(), "utf-8");
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"网络异常",Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"输出异常",Toast.LENGTH_SHORT).show();
+    public void deletemarker(View view) {
+        if (marker_id!=null){
+            SendMessageManager.getInstance().deleteFootInfo(marker_id);
         }
-
-        return "异常";
     }
 }

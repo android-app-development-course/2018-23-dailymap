@@ -2,14 +2,20 @@ package com.dailymap.network;
 
 
 import com.dailymap.constant.Constants;
+import com.dailymap.model.network.BaseResponseInfo;
 import com.dailymap.model.network.DestinationResponseInfo;
 import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.LoginResponseInfo;
 import com.dailymap.model.network.NewsResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Field;
+import retrofit2.http.Part;
 
 /**
  * Created by WuchangI on 2018/11/17.
@@ -86,5 +92,23 @@ public class SendMessageManager
         httpChannel.sendMessage(observable, Constants.INSERTFLAGSINFO);
     }
 
+    public void insertFootInfo(String user_id,String latitude,String longitude,String place_name,String thought){
+        Observable<RegisterResponseInfo> observable = apiService.insertFootInfo(user_id,latitude,longitude,place_name,thought);
+        httpChannel.sendMessage(observable, Constants.INSERTFOOTINFO);
+    }
+    public void upImg(Map<String,String> params, MultipartBody.Part file){
+        Observable<BaseResponseInfo> observable = apiService.upImg(params,file);
+        httpChannel.sendMessage(observable, Constants.INSERTPHPTOPATH);
+    }
+
+    public void deleteDestinationInfo(String marker_id){
+        Observable<BaseResponseInfo> observable = apiService.deleteDestinationInfo(marker_id);
+        httpChannel.sendMessage(observable, Constants.DELETEDESTINATIONINFO);
+    }
+
+    public void deleteFootInfo(String marker_id){
+        Observable<BaseResponseInfo> observable = apiService.deleteFootInfo(marker_id);
+        httpChannel.sendMessage(observable, Constants.INSERTFOOTINFO);
+    }
 
 }

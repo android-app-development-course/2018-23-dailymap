@@ -74,11 +74,20 @@ public class ReceiveMessageManager
 
                 break;
 
-            case "newsContent.php":
+            case "insertFootInfo":
 
-                NewsResponseInfo newsResponseInfo = (NewsResponseInfo) baseResponseInfo;
-                EventBus.getDefault().post(newsResponseInfo);
+                RegisterResponseInfo registerResponseInfo2 = (RegisterResponseInfo) baseResponseInfo;
+                EventBus.getDefault().post(registerResponseInfo2);
 
+                break;
+
+
+            case "deleteFootInfo":
+            case "deleteDestinationInfo":
+            case "InsertPhotoPath":
+
+                BaseResponseInfo baseResponseInfo1 = (BaseResponseInfo) baseResponseInfo;
+                EventBus.getDefault().post(baseResponseInfo1);
                 break;
 
             default:

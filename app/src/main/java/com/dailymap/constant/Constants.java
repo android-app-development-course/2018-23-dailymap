@@ -18,7 +18,11 @@ public class Constants
     public static final String GETFOOTSINFOFROMUSERID = "getFootInfoFromUserId";
     public static final String GETFOOTSINFOFROMMARKERID = "getFootInfoFromMarkerId";
     public static final String INSERTFLAGSINFO = "insertFlagsInfo";
+    public static final String INSERTFOOTINFO = "insertFootInfo";
     public static final String DELETEDESTINATIONINFO = "deleteDestinationInfo";
+    public static final String DELETEFOOTINFO = "deleteFootInfo";
     public static final String UPDATEDESTINATIONINFO = "updateDestinationInfo";
+    public static final String INSERTPHPTOPATH = "InsertPhotoPath";
+
 
 }

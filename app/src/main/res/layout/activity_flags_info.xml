@@ -48,11 +48,20 @@
             android:layout_width="80dp"
             android:layout_height="50dp"
             android:layout_toRightOf="@+id/button1"
-            android:layout_marginLeft="80dp"
             android:textSize="20sp"
             android:text="取消"
             android:textColor="@color/colorPrimary"
             android:background="@drawable/bt_style_regi"/>
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/button2"
+            android:textSize="20sp"
+            android:text="删除"
+            android:textColor="@color/colorGray"
+            android:background="@drawable/bt_style_regi"
+            android:onClick="deletemarker" />
     </RelativeLayout>
     <!-- 显示图片 -->
     <RelativeLayout

@@ -109,7 +109,7 @@ public class Login_regis extends AppCompatActivity {
     public void Event1(LoginResponseInfo messageEvent) {
         //Toast.makeText(this, messageEvent.getError(), Toast.LENGTH_SHORT).show();
         if (messageEvent.getResult().equals("请检查用户名或密码是否正确")){
-            Toast.makeText(this, "登录出错，请检查用户名或密码是否正确！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,messageEvent.getResult().toString(), Toast.LENGTH_SHORT).show();
         }else {
             Constants.USERNAME=messageEvent.getResult().getName();
             Constants.USERID=messageEvent.getResult().getUser_id();

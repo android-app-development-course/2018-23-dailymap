@@ -26,14 +26,23 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.dailymap.R;
+import com.dailymap.constant.Constants;
+import com.dailymap.network.SendMessageManager;
 import com.dailymap.utils.HttpUtils;
 import com.dailymap.utils.UploadUtil;
 import com.baidu.mapapi.model.LatLng;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class FootsInfo extends AppCompatActivity {
 
@@ -45,17 +54,17 @@ public class FootsInfo extends AppCompatActivity {
     private String longitude;
     private String marker_id;
     private TextView foots_title;
-    private String img_src;
+    private LinkedList<String> img_src=new LinkedList<>();
     private EditText tra_thought;
 
     private GridView gridView1;              //网格显示缩略图
     private Button buttonPublish;            //发布按钮
-    private final int IMAGE_OPEN = 1;        //打开图片标记
+    private final int IMAGE_OPEN = 1;      //打开图片标记
     private String pathImage;                //选择图片路径
     private Bitmap bmp;                      //导入临时图片
     private ArrayList<HashMap<String, Object>> imageItem;
     private SimpleAdapter simpleAdapter;     //适配器
-    private Button upload;
+    private Button save;
     private String thought;
     private Button cancel;
     //获取图片路径 响应startActivityForResult
@@ -64,7 +73,7 @@ public class FootsInfo extends AppCompatActivity {
         //打开图片
         if(resultCode==RESULT_OK && requestCode==IMAGE_OPEN) {
             Uri uri = data.getData();
-            img_src=getRealPathFromUri(FootsInfo.this,uri);
+            img_src.add(getRealPathFromUri(FootsInfo.this,uri));
             if (!TextUtils.isEmpty(uri.getAuthority())) {
                 //查询选择图片
                 Cursor cursor = getContentResolver().query(
@@ -130,6 +139,7 @@ public class FootsInfo extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 imageItem.remove(position);
+                img_src.remove(position);
                 simpleAdapter.notifyDataSetChanged();
             }
         });
@@ -154,6 +164,7 @@ public class FootsInfo extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        EventBus.getDefault().register(this);
         latitude=this.getIntent().getStringExtra("latitude");
         longitude=this.getIntent().getStringExtra("longitude");
         thought=this.getIntent().getStringExtra("thought");
@@ -167,13 +178,12 @@ public class FootsInfo extends AppCompatActivity {
         });
         tra_thought=(EditText)findViewById(R.id.editText1);
         tra_thought.setText(thought);
-        latitude=this.getIntent().getStringExtra("latitude");
-        longitude=this.getIntent().getStringExtra("longitude");
-        upload=(Button)findViewById(R.id.button1);
-        upload.setOnClickListener(new View.OnClickListener() {
+        save=(Button)findViewById(R.id.button1);
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                upload();
+                addfootinfo();
+                uploadImage(img_src);
             }
         });
 
@@ -254,29 +264,13 @@ public class FootsInfo extends AppCompatActivity {
         });
     }
 
-    private void upload() {
-        Toast.makeText(this, img_src, Toast.LENGTH_SHORT).show();
-        uploadImage(img_src);
-    }
 
     private void addfootinfo() {
-        Map<String, String> params = new HashMap<String, String>();
-        /*params.put("user_id", 4+"");
-        //params.put("marker_id", markid);
-        params.put("latitude", latitude);
-        params.put("longitude", longitude);
-        params.put("thought", tra_thought.getText().toString());
-        params.put("photos_path", "H:\\\\eclipse-workspace\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\LittleTest\\\\uploadphpto");
-        */
-        String encode = "utf-8";
-        params.put("marker_id", marker_id);
-        params.put("thought", tra_thought.getText().toString());
-        int resultcode= HttpUtils.changefootinfo(params,encode);
-        if (resultcode==1){
-            //Toast.makeText(FootsInfo.this, "添加足迹信息成功", Toast.LENGTH_SHORT).show();
-        this.finish();
+        if (marker_id==null)
+        SendMessageManager.getInstance().insertFootInfo(Constants.USERID,latitude,longitude,"",tra_thought.getText().toString());
+        else
+            SendMessageManager.getInstance().insertFootInfo(Constants.USERID,latitude,longitude,"",tra_thought.getText().toString());
 
-        }
     }
 
 
@@ -285,46 +279,25 @@ public class FootsInfo extends AppCompatActivity {
      * 从相册选取图片
 
      */
- public void uploadImage(String path) {
+ public void uploadImage(LinkedList<String> imgpaths) {
 
-        new Thread(new Runnable() {
-
-            @Override
-
-            public void run() {
-
-
-
-
-                String result;
-
-
-                String uploadurl = "http://192.168.123.234:8080/LittleTest/Upload";//SharedPreferencesUtil.getServerUrls(getActivity()) + "mobileqrcode/uploadsignimg.html";
-
-                try {
-
-                    File file = new File(img_src);
-
-                    result = UploadUtil.uploadImage(file, uploadurl);
-
-                    addfootinfo();
-
-                } catch (Exception e) {
-
-                    e.printStackTrace();
-
-                }
-
-
-
-            }
-
-        }).start();
-
-
-
+     for (int i=0;i<imgpaths.size();i++){
+         File file = new File(imgpaths.get(i));
+         String fileNameByTimeStamp ="";
+         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
+         MultipartBody.Part body = MultipartBody.Part.createFormData("app_user_header", fileNameByTimeStamp, requestFile);
+         Map<String,String> params=new HashMap<>();
+         params.put("marker_id",marker_id);
+         SendMessageManager.getInstance().upImg(params,body);
+     }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
+ }
 
     /**
 
@@ -522,4 +495,10 @@ public class FootsInfo extends AppCompatActivity {
     }
 
 
+    public void deletemarker(View view) {
+
+        if (marker_id!=null){
+            SendMessageManager.getInstance().deleteFootInfo(marker_id);
+        }
+    }
 }
