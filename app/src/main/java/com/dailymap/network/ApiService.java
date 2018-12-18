@@ -1,5 +1,8 @@
 package com.dailymap.network;
 
+import com.dailymap.model.network.Destination;
+import com.dailymap.model.network.DestinationResponseInfo;
+import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.LoginResponseInfo;
 import com.dailymap.model.network.NewsResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
@@ -43,11 +46,43 @@ public interface ApiService
     Observable<RegisterResponseInfo> getRegisterStatus(@Field("name") String name, @Field("password") String password,
                                                        @Field("phone_num") String phone_num,@Field("user_intro") String user_intro,@Field("user_sex") String user_sex,@Field("user_city") String user_city,@Field("user_email") String user_email);
 
-    /**
-     * 获取新闻列表
-     * @return
-     */
+
     @GET("newsContent.php")
     Observable<NewsResponseInfo> getNews();
+
+    @FormUrlEncoded
+    @POST("getDestinationInfoFromUserId")
+    Observable<DestinationResponseInfo> getDestinationInfoFromUserId(@Field("user_id") String user_id);
+    @FormUrlEncoded
+    @POST("getFootInfoFromUserId")
+    Observable<FootsResponseInfo> getFootInfoFromUserId(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("getDestinationInfoFromMarkerId")
+    Observable<DestinationResponseInfo> getDestinationInfoFromMarkerId(@Field("marker_id") String marker_id);
+
+    @FormUrlEncoded
+    @POST("insertFlagsInfo")
+    Observable<RegisterResponseInfo> insertFlagsInfo(@Field("user_id") String user_id,@Field("latitude") String latitude,@Field("longitude") String longitude,@Field("place_name") String place_name,@Field("travel_plan") String travel_plan);
+
+    @FormUrlEncoded
+    @POST("insertFootInfo")
+    Observable<RegisterResponseInfo> insertFootInfo(@Field("user_id") String user_id,@Field("latitude") String latitude,@Field("longitude") String longitude,@Field("place_name") String place_name,@Field("thought") String thought);
+
+    @FormUrlEncoded
+    @POST("updateDestinationInfo")
+    Observable<RegisterResponseInfo> updateDestinationInfo(@Field("marker_id") String marker_id,@Field("latitude") String latitude,@Field("place_name") String place_name,@Field("longitude") String longitude,@Field("travel_plan") String travel_plan);
+
+
+    @FormUrlEncoded
+    @POST("deleteDestinationInfo")
+    Observable<RegisterResponseInfo> deleteDestinationInfo(@Field("marker_id") String marker_id);
+
+
+    @FormUrlEncoded
+    @POST("getFootInfoFromMarkerId")
+    Observable<FootsResponseInfo> getFootInfoFromMarkerId(@Field("marker_id") String marker_id);
+
+
 
 }

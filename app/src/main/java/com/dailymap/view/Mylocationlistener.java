@@ -39,7 +39,7 @@ public class Mylocationlistener extends BDAbstractLocationListener {
         }
         //AROverlayView.arPoints.add(new ARPoint(Poiinfo, 3.1850, 101.6868, 0));
        String n= poiList.get(0).getId();
-        ARActivity.tvCurrentLocation.setText(country+province+city+district+street+"\n"+Poiinfo+"\n");
+//        ARActivity.tvCurrentLocation.setText(country+province+city+district+street+"\n"+Poiinfo+"\n");
 
         Log.d(TAG, "得到的位置啊啊啊:"+addr+":"+country+province+city+district+street+location.getLatitude());
 
@@ -49,6 +49,6 @@ public class Mylocationlistener extends BDAbstractLocationListener {
         nearbySearchOption.radius(1000);// 检索半径，单位是米0
         nearbySearchOption.keyword("景点");
         nearbySearchOption.pageNum(1);
-        ARActivity.poiSearch.searchNearby(nearbySearchOption);// 发起附近检索请求
+//        ARActivity.poiSearch.searchNearby(nearbySearchOption);// 发起附近检索请求
     }
 }

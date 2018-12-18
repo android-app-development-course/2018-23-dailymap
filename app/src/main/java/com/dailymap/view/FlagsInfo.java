@@ -9,8 +9,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.OverlayOptions;
+import com.baidu.mapapi.model.LatLng;
 import com.dailymap.R;
+import com.dailymap.constant.Constants;
+import com.dailymap.model.network.Destination;
+import com.dailymap.model.network.DestinationResponseInfo;
+import com.dailymap.model.network.RegisterResponseInfo;
+import com.dailymap.network.SendMessageManager;
 import com.dailymap.utils.HttpUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,6 +35,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FlagsInfo extends AppCompatActivity {
@@ -41,9 +57,11 @@ private String marker_id;
             getSupportActionBar().hide();
         }
 
+        EventBus.getDefault().register(this);
+
         markid=(TextView) findViewById(R.id.markid);
 
-        markid.setText(this.getIntent().getStringExtra("markid"));
+        //markid.setText(this.getIntent().getStringExtra("markid"));
         marker_id=this.getIntent().getStringExtra("marker_id");
         latitude=this.getIntent().getStringExtra("latitude");
         longitude=this.getIntent().getStringExtra("longitude");
@@ -57,47 +75,31 @@ private String marker_id;
                 finish();
             }
         });
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String result=streampost(latitude,longitude);
-                markid.setText(result);
-            }
-        }).start();
-
-
 
         save=(Button)findViewById(R.id.button1);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Map<String, String> params = new HashMap<String, String>();
-                      /*  params.put("user_id", 4+"");
-                        params.put("latitude", latitude);
-                        params.put("longitude", longitude);
-                        params.put("place_name", "日本东京");
-                        params.put("travel_plan", travel_plan.getText().toString());
-                        */
-                        params.put("marker_id", marker_id);
-                        params.put("travel_plan", travel_plan.getText().toString());
-                        String encode = "utf-8";
-                        int resultcode= HttpUtils.changeflaginfo(params,encode);
-                        if (resultcode==1){
-                            //Toast.makeText(FootsInfo.this, "添加足迹信息成功", Toast.LENGTH_SHORT).show();
-                            finish();
-
-                        }
-                    }
-                }).start();
+                SendMessageManager.getInstance().insertFlagsInfo(Constants.USERID,latitude,longitude,"",travel_plan.getText().toString());
             }
         });
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(RegisterResponseInfo messageEvent) {
+        String marker_id=messageEvent.getResult();
 
-    public String streampost(String latitude,String longitude) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this);
+    }
+
+    public String streampost(String latitude, String longitude) {
         URL infoUrl = null;
 
 //        String remote_addr="http://api.weatherdt.com/common/?area="+citycode+"&type="+datacode+"&key=90d48635e440fc4c032e4f5b5b11e996";

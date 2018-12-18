@@ -2,11 +2,14 @@ package com.dailymap.network;
 
 
 import com.dailymap.constant.Constants;
+import com.dailymap.model.network.DestinationResponseInfo;
+import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.LoginResponseInfo;
 import com.dailymap.model.network.NewsResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
 
 /**
  * Created by WuchangI on 2018/11/17.
@@ -46,8 +49,9 @@ public class SendMessageManager
     /**
      * 发送“获取用户注册状态”的消息
      * @param username
-     * @param email
      * @param password
+     * @param phone_num
+     *
      */
     public void getRegisterStatus(String username, String password,String phone_num,String user_intro,String user_sex,String user_city,String user_email)
     {
@@ -62,6 +66,24 @@ public class SendMessageManager
     {
         Observable<NewsResponseInfo> observable = apiService.getNews();
         httpChannel.sendMessage(observable, Constants.GET_NEWS_URL);
+    }
+
+    public void getDestinationInfoFromUserId(String user_id){
+        Observable<DestinationResponseInfo> observable = apiService.getDestinationInfoFromUserId(user_id);
+        httpChannel.sendMessage(observable, Constants.GETDESTINATIONFROMUSERID);
+    }
+    public void getFootInfoFromUserId(String user_id){
+        Observable<FootsResponseInfo> observable = apiService.getFootInfoFromUserId(user_id);
+        httpChannel.sendMessage(observable, Constants.GETFOOTSINFOFROMUSERID);
+    }
+    public void getDestinationInfoFromMarkerId(String marker_id){
+        Observable<DestinationResponseInfo> observable = apiService.getDestinationInfoFromMarkerId(marker_id);
+        httpChannel.sendMessage(observable, Constants.GET_NEWS_URL);
+    }
+
+    public void insertFlagsInfo(String user_id,String latitude,String longitude,String place_name,String travel_plan){
+        Observable<RegisterResponseInfo> observable = apiService.insertFlagsInfo(user_id,latitude,longitude,place_name,travel_plan);
+        httpChannel.sendMessage(observable, Constants.INSERTFLAGSINFO);
     }
 
 

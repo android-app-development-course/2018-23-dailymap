@@ -1,23 +1,21 @@
 package com.dailymap.model.network;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by WuchangI on 2018/11/17.
  */
 
 public class LoginResponseInfo extends BaseResponseInfo
 {
-    /**
-     * 登录状态，error = true表示登录成功，error = false 表示登录失败
-     */
-    public String error;
+    @SerializedName("result")
+    public UserInfo result;
 
-    public String getError()
-    {
-        return error;
+    public UserInfo getResult() {
+        return result;
     }
 
-    public void setError(String error)
-    {
-        this.error = error;
+    public void setResult(UserInfo result) {
+        this.result = result;
     }
 }

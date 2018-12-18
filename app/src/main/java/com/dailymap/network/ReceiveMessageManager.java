@@ -2,6 +2,8 @@ package com.dailymap.network;
 
 
 import com.dailymap.model.network.BaseResponseInfo;
+import com.dailymap.model.network.DestinationResponseInfo;
+import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.LoginResponseInfo;
 import com.dailymap.model.network.NewsResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
@@ -36,7 +38,7 @@ public class ReceiveMessageManager
     {
         switch (appendUrl)
         {
-            case "login.php":
+            case "VerifyUser":
 
                 LoginResponseInfo loginResponseInfo = (LoginResponseInfo) baseResponseInfo;
                 EventBus.getDefault().post(loginResponseInfo);
@@ -51,6 +53,26 @@ public class ReceiveMessageManager
 
                 break;
 
+            case "getDestinationInfoFromUserId":
+
+                DestinationResponseInfo destinationResponseInfo = (DestinationResponseInfo) baseResponseInfo;
+                EventBus.getDefault().post(destinationResponseInfo);
+
+                break;
+
+            case "getFootInfoFromUserId":
+
+                FootsResponseInfo footsResponseInfo = (FootsResponseInfo) baseResponseInfo;
+                EventBus.getDefault().post(footsResponseInfo);
+
+                break;
+
+            case "insertFlagsInfo":
+
+                RegisterResponseInfo registerResponseInfo1 = (RegisterResponseInfo) baseResponseInfo;
+                EventBus.getDefault().post(registerResponseInfo1);
+
+                break;
 
             case "newsContent.php":
 

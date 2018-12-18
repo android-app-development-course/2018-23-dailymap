@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dailymap.R;
+import com.dailymap.constant.Constants;
+import com.dailymap.model.network.LoginResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
 import com.dailymap.network.SendMessageManager;
 import com.dailymap.utils.HttpUtils;
@@ -100,7 +102,23 @@ public class Login_regis extends AppCompatActivity {
         if (messageEvent.getResult().equals("successful")){
             Toast.makeText(this, "注册成功，欢迎！", Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this, "注册成功，欢迎！", Toast.LENGTH_SHORT).show();
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event1(LoginResponseInfo messageEvent) {
+        //Toast.makeText(this, messageEvent.getError(), Toast.LENGTH_SHORT).show();
+        if (messageEvent.getResult().equals("请检查用户名或密码是否正确")){
+            Toast.makeText(this, "登录出错，请检查用户名或密码是否正确！", Toast.LENGTH_SHORT).show();
+        }else {
+            Constants.USERNAME=messageEvent.getResult().getName();
+            Constants.USERID=messageEvent.getResult().getUser_id();
+            Toast.makeText(this, "登录成功，欢迎！"+messageEvent.getResult().getName(), Toast.LENGTH_SHORT).show();
+            this.finish();
+        }
+
+
+          }
 
     @Override
     protected void onDestroy() {
@@ -132,10 +150,7 @@ public class Login_regis extends AppCompatActivity {
             Toast.makeText(Login_regis.this, "两次密码不一致", Toast.LENGTH_SHORT).show();
             return;
         }
-       /* HttpUtils.PATH="http://192.168.123.234:8080/LittleTest/register";
-        loginHandle(username.getText().toString(), password.getText().toString());
-*/
-        SendMessageManager.getInstance().getRegisterStatus("nan","nanshan","","","","","");
+        SendMessageManager.getInstance().getRegisterStatus(username.getText().toString(),password.getText().toString(),number_text.getText().toString(),"","","","");
 
     }
 
@@ -161,78 +176,7 @@ public class Login_regis extends AppCompatActivity {
             Toast.makeText(Login_regis.this, "请输入密码", Toast.LENGTH_SHORT).show();
             return;
         }
-        HttpUtils.PATH = "http://192.168.123.234:8080/LittleTest/Login";
-        loginHandle(userName, passWord);
+        SendMessageManager.getInstance().getLoginStatus(username.getText().toString(),password.getText().toString());
 
     }
-
-    private void loginHandle(final  String userName,final String passWord) {
-        new Thread(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                ///< 发送用户名和密码到服务器进行校验，并获得服务器返回值
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("name", userName);
-                params.put("pwd", passWord);
-                String encode = "utf-8";
-
-                //            Toast.makeText(LoginActivity.this, params.get("user_name"), Toast.LENGTH_SHORT).show();
-                //            Toast.makeText(LoginActivity.this, params.get("password"), Toast.LENGTH_SHORT).show();
-
-                String response = HttpUtils.sendMessage(params, encode);
-                int responseCode=Integer.parseInt(response.substring(0,1));
-                Looper.prepare();
-                if (0 == responseCode)
-                {
-                    Toast.makeText(Login_regis.this, "登录成功", Toast.LENGTH_SHORT).show();
-
-                        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-
-                        SharedPreferences.Editor editor = sharedPreferences.edit();//获取编辑器
-                        editor.putInt("user_id", Integer.parseInt(response.substring(1)));
-                        editor.commit();//提交修改
-                        finish();
-
-                }
-                else if (1 == responseCode)
-                {
-                    Toast.makeText(Login_regis.this, "用户名错误!", Toast.LENGTH_SHORT).show();
-
-                }
-                else if (2 == responseCode)
-                {
-                    Toast.makeText(Login_regis.this, "密码错误!", Toast.LENGTH_SHORT).show();
-                }
-                else if (3==responseCode)
-                {
-                    Toast.makeText(Login_regis.this, "用户名已存在!", Toast.LENGTH_SHORT).show();
-                }
-                else if (4==responseCode){
-                    Toast.makeText(Login_regis.this, "注册成功!", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(Login_regis.this, "异常!", Toast.LENGTH_SHORT).show();
-                }
-
-                Toast.makeText(Login_regis.this, "你的登录次数还剩2次", Toast.LENGTH_SHORT).show();
-                Looper.loop();
-
-                //执行完毕后给handler发送一个空消息
-                handler.sendEmptyMessage(0);
-            }
-        }).start();
-    }
-
-    //定义Handler对象
-    private Handler handler =new Handler(){
-        @Override
-        //当有消息发送出来的时候就执行Handler的这个方法
-        public void handleMessage(Message msg){
-            super.handleMessage(msg);
-            // TODO 处理UI
-            Toast.makeText(Login_regis.this, "结束", Toast.LENGTH_SHORT).show();
-        }
-    };
 }

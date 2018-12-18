@@ -27,6 +27,11 @@ import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.dailymap.R;
 import com.dailymap.model.FootMarker;
+import com.dailymap.model.network.Destination;
+import com.dailymap.model.network.DestinationResponseInfo;
+import com.dailymap.model.network.FootsResponseInfo;
+import com.dailymap.model.network.LoginResponseInfo;
+import com.dailymap.network.SendMessageManager;
 import com.dailymap.utils.HttpUtils;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.SDKInitializer;
@@ -53,6 +58,9 @@ import com.dailymap.view.MoreFunction;
 import com.dailymap.view.Mylocationlistener;
 import com.dailymap.view.TopView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -240,6 +248,8 @@ public class DailyMap extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        EventBus.getDefault().register(this);
+
         /*SharedPreferences preferences = getSharedPreferences("userInfo",Activity.MODE_PRIVATE);
         user_id = Integer.parseInt(preferences.getString("user_id", -1+""));
 */
@@ -253,18 +263,19 @@ public class DailyMap extends AppCompatActivity {
         addfootinit();
 //点击marker的事件
         markerlistenerinit();
-BDlocationinit();
+        BDlocationinit();
 //站看popupwindow
         trainfotitleinit();
 
-        //获取用户的marker信息
-       // markerinfoinit();
+
 //定位
         MapStatus.Builder builder = new MapStatus.Builder();
         /*LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
         builder.target(latLng);*/
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
        // bdlocation(location.getLatitude(),location.getLongitude());
+
+
 
     }
     //初始化百度定位
@@ -419,7 +430,8 @@ BDlocationinit();
     @Override
     protected void onResume() {
         super.onResume();
-       // refleshmarker();
+        //获取用户的marker信息
+        markerinfoinit();
 
     }
 
@@ -430,112 +442,69 @@ BDlocationinit();
 
         foots.clear();
         flags.clear();
-new Thread(new Runnable() {
-    @Override
-    public void run() {
-        String footinforesult=getfootinfo();
-        String flaginforesult=getflaginfo();
-        addfootmarker(footinforesult);
-        addflagmarker(flaginforesult);
-        Log.i("得到的足迹信息啊啊啊啊 啊啊啊啊啊啊啊",footinforesult);
-
-    }
-}).start();
-
+        SendMessageManager.getInstance().getDestinationInfoFromUserId("4");
+        SendMessageManager.getInstance().getFootInfoFromUserId("4");
     }
 
-    //根据后台返回的数据添加旗子
-    private void addflagmarker(String flaginforesult) {
-        try {
-            JSONObject jsonObject=new JSONObject(flaginforesult);
-            JSONArray jsonArray=jsonObject.getJSONArray("flaginfoList");
-            for (int i=0;i<jsonArray.length();i++){
-                String s=jsonArray.getJSONObject(i).getString("user_id");
-                String s1=jsonArray.getJSONObject(i).getString("marker_id");
-                String s2=jsonArray.getJSONObject(i).getString("latitude");
-                String s3=jsonArray.getJSONObject(i).getString("longitude");
-                String s4=jsonArray.getJSONObject(i).getString("place_name");
-                String s5=jsonArray.getJSONObject(i).getString("travel_plan");
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(DestinationResponseInfo messageEvent) {
+        List<Destination> destinations=messageEvent.getResult();
+        for (int i=0;i<destinations.size();i++){
+            Bundle mBundle = new Bundle();
+            mBundle.putString("marker_id", destinations.get(i).getMarker_id());
+            mBundle.putString("place_name", destinations.get(i).getPlace_name());
+            mBundle.putString("travel_plan", destinations.get(i).getTravel_plan());
+            mBundle.putBoolean("isfoot",false);
 
-                Bundle mBundle = new Bundle();
-                mBundle.putString("user_id", s);
-                mBundle.putString("marker_id", s1);
-                mBundle.putString("place_name", s4);
-                mBundle.putString("travel_plan", s5);
-                mBundle.putBoolean("isfoot",false);
+            LatLng point = new LatLng(Double.parseDouble(destinations.get(i).getLatitude()), Double.parseDouble(destinations.get(i).getLongitude()));
+            //构建Marker图标
 
-                LatLng point = new LatLng(Double.parseDouble(s2), Double.parseDouble(s3));
-                //构建Marker图标
-
-                BitmapDescriptor bitmap = BitmapDescriptorFactory
-                        .fromResource(R.drawable.flags);
+            BitmapDescriptor bitmap = BitmapDescriptorFactory
+                    .fromResource(R.drawable.flags);
 //构建MarkerOption，用于在地图上添加Marker
 
-                OverlayOptions option = new MarkerOptions()
-                        .position(point)
-                        .icon(bitmap).draggable(true).extraInfo(mBundle).title(s4);
+            OverlayOptions option = new MarkerOptions()
+                    .position(point)
+                    .icon(bitmap).draggable(true).extraInfo(mBundle).title(destinations.get(i).getPlace_name());
 
 //在地图上添加Marker，并显示
-                Marker marker;
-                marker=(Marker) mBaiduMap.addOverlay(option);
-                marker.setExtraInfo(mBundle);
-                flags.add(marker);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "json异常", Toast.LENGTH_SHORT).show();
+            Marker marker;
+            marker=(Marker) mBaiduMap.addOverlay(option);
+            marker.setExtraInfo(mBundle);
+            flags.add(marker);
         }
-
     }
-    //根据后台返回的数据添加足迹
-    private void addfootmarker(String footinforesult) {
-        try {
-            JSONObject jsonObject=new JSONObject(footinforesult);
-            JSONArray jsonArray=jsonObject.getJSONArray("footinfoList");
-            for (int i=0;i<jsonArray.length();i++){
 
-                String s=jsonArray.getJSONObject(i).getString("user_id");
-                String s1=jsonArray.getJSONObject(i).getString("marker_id");
-                String s2=jsonArray.getJSONObject(i).getString("latitude");
-                String s3=jsonArray.getJSONObject(i).getString("longitude");
-                String s4=jsonArray.getJSONObject(i).getString("place_name");
-                String s5=jsonArray.getJSONObject(i).getString("thought");
-                String s6=jsonArray.getJSONObject(i).getString("photos_path");
-                FootMarker footMarker=new FootMarker(s,s1,s2,s3,s4,s5,s6);
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event1(FootsResponseInfo messageEvent) {
+        List<com.dailymap.model.network.FootsInfo> footsInfos=messageEvent.getResult();
+        for (int i=0;i<footsInfos.size();i++){
+            Bundle mBundle = new Bundle();
+            mBundle.putString("marker_id", footsInfos.get(i).getMarker_id());
+            mBundle.putString("place_name", footsInfos.get(i).getPlace_name());
+            mBundle.putString("thought", footsInfos.get(i).getThought());
+            mBundle.putString("photos_path", footsInfos.get(i).getPhotos_path());
+            mBundle.putBoolean("isfoot",true);
 
-                Bundle mBundle = new Bundle();
-                mBundle.putString("user_id", s);
-                mBundle.putString("marker_id", s1);
-                mBundle.putString("place_name", s4);
-                mBundle.putString("thought", s5);
-                mBundle.putString("photos_path", s6);
-                mBundle.putBoolean("isfoot",true);
+            LatLng point = new LatLng(Double.parseDouble(footsInfos.get(i).getLatitude()), Double.parseDouble(footsInfos.get(i).getLongitude()));
+            //构建Marker图标
 
-                LatLng point = new LatLng(Double.parseDouble(s2), Double.parseDouble(s3));
-                //构建Marker图标
-
-                BitmapDescriptor bitmap = BitmapDescriptorFactory
-                        .fromResource(R.drawable.foots);
+            BitmapDescriptor bitmap = BitmapDescriptorFactory
+                    .fromResource(R.drawable.foots);
 //构建MarkerOption，用于在地图上添加Marker
 
-                OverlayOptions option = new MarkerOptions()
-                        .position(point)
-                        .icon(bitmap).draggable(true).extraInfo(mBundle).title(s4);
+            OverlayOptions option = new MarkerOptions()
+                    .position(point)
+                    .icon(bitmap).draggable(true).extraInfo(mBundle).title(footsInfos.get(i).getPlace_name());
 
 //在地图上添加Marker，并显示
-                Marker marker;
-                marker=(Marker) mBaiduMap.addOverlay(option);
-                marker.setExtraInfo(mBundle);
-                foots.add(marker);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "json异常", Toast.LENGTH_SHORT).show();
+            Marker marker;
+            marker=(Marker) mBaiduMap.addOverlay(option);
+            marker.setExtraInfo(mBundle);
+            foots.add(marker);
         }
-
     }
+
 
     //获取后台数据后更新vector并显示图层
     private void refleshmarker() {
@@ -578,78 +547,6 @@ new Thread(new Runnable() {
         }
     }
 
-    //获取后台足迹信息
-    public String getfootinfo() {
-        URL infoUrl = null;
-
-//        String remote_addr="http://api.weatherdt.com/common/?area="+citycode+"&type="+datacode+"&key=90d48635e440fc4c032e4f5b5b11e996";
-        String remote_addr ="http://192.168.123.234:8080/LittleTest/GetFootInfo?user_id="+user_id;
-        try {
-            infoUrl = new URL(remote_addr);
-            URLConnection connection = infoUrl.openConnection();
-            HttpURLConnection httpconnection = (HttpURLConnection) connection;
-            httpconnection.setRequestMethod("GET");
-            httpconnection.setReadTimeout(5000);
-            InputStream inStream = httpconnection.getInputStream();
-            ByteArrayOutputStream data = new ByteArrayOutputStream();
-
-            byte[] buffer = new byte[2000];
-            int len = 0;
-            while ((len = inStream.read(buffer)) != -1) {
-                data.write(buffer, 0, len);
-            }
-            inStream.close();
-            String test=new String(data.toByteArray(), "utf-8");
-            Log.i("test",test);
-            return new String(data.toByteArray(), "utf-8");
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"网络异常",Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"输出异常",Toast.LENGTH_SHORT).show();
-        }
-
-        return "异常";
-    }
-
-    //获取后台旗子信息
-    public String getflaginfo() {
-
-        URL infoUrl = null;
-
-//        String remote_addr="http://api.weatherdt.com/common/?area="+citycode+"&type="+datacode+"&key=90d48635e440fc4c032e4f5b5b11e996";
-        String remote_addr="http://192.168.123.234:8080/LittleTest/GetFlagInfo?user_id="+user_id;
-        try {
-            infoUrl = new URL(remote_addr);
-            URLConnection connection = infoUrl.openConnection();
-            HttpURLConnection httpconnection = (HttpURLConnection) connection;
-            httpconnection.setRequestMethod("GET");
-            httpconnection.setReadTimeout(5000);
-            InputStream inStream = httpconnection.getInputStream();
-            ByteArrayOutputStream data = new ByteArrayOutputStream();
-
-            byte[] buffer = new byte[2000];
-            int len = 0;
-            while ((len = inStream.read(buffer)) != -1) {
-                data.write(buffer, 0, len);
-            }
-            inStream.close();
-            String test=new String(data.toByteArray(), "utf-8");
-            Log.i("test",test);
-            return new String(data.toByteArray(), "utf-8");
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"网络异常",Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this,"输出异常",Toast.LENGTH_SHORT).show();
-        }
-
-        return "异常";
-    }
 
     //显示定位图标
     private void bdlocation(double lat,double lon) {
@@ -779,8 +676,23 @@ new Thread(new Runnable() {
             public boolean onMarkerClick(Marker marker) {
 
                 Bundle bundle = marker.getExtraInfo();
-                Boolean isfoot=bundle.getBoolean("isfoot");
-                String marker_id=bundle.getString("marker_id");
+                Boolean isfoot=bundle.getBoolean("isfoot",true);
+                String marker_id=bundle.getString("marker_id",null);
+                if (marker_id==null){
+                    if (isfoot){
+                        Intent intent=new Intent(DailyMap.this,FootsInfo.class);
+                        intent.putExtra("latitude",marker.getPosition().latitude+"");
+                        intent.putExtra("longitude",marker.getPosition().longitude+"");
+                        startActivityForResult(intent,FOOTINFO);
+                    }
+                    else {
+                        Intent intent=new Intent(DailyMap.this,FlagsInfo.class);
+                        intent.putExtra("latitude",marker.getPosition().latitude+"");
+                        intent.putExtra("longitude",marker.getPosition().longitude+"");
+                        startActivityForResult(intent,FLAGINFO);
+                    }
+                    return true;
+                }
                 if (isfoot){
                     String s= bundle.getString("thought");
                     Intent intent=new Intent(DailyMap.this,FootsInfo.class);
@@ -844,21 +756,7 @@ new Thread(new Runnable() {
                       Marker marker;
                       marker=(Marker) DailyMap.mBaiduMap.addOverlay(option);
 
-
-
-                      Map<String, String> params = new HashMap<String, String>();
-                      params.put("user_id", 4+"");
-                      //params.put("marker_id", markid);
-                      params.put("latitude", marker.getPosition().latitude+"");
-                      params.put("longitude", marker.getPosition().longitude+"");
-                      params.put("thought", "");
-                      params.put("photos_path", "H:\\\\eclipse-workspace\\\\.metadata\\\\.plugins\\\\org.eclipse.wst.server.core\\\\tmp0\\\\wtpwebapps\\\\LittleTest\\\\uploadphpto");
-
-                      String encode = "utf-8";
-                      int marker_id= HttpUtils.addfootinfo(params,encode);
-                      Bundle mBundle = new Bundle();
-                      mBundle.putString("user_id", 4+"");
-                      mBundle.putString("marker_id", marker_id+"");
+                      Bundle mBundle=new Bundle();
                       mBundle.putBoolean("isfoot",true);
                       marker.setExtraInfo(mBundle);
                       foots.add(marker);
@@ -902,21 +800,7 @@ new Thread(new Runnable() {
 //在地图上添加Marker，并显示
                         Marker marker;
                         marker=(Marker) DailyMap.mBaiduMap.addOverlay(option);
-
-
-
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("user_id", 4+"");
-                        //params.put("marker_id", markid);
-                        params.put("latitude", marker.getPosition().latitude+"");
-                        params.put("longitude", marker.getPosition().longitude+"");
-                        params.put("travel_plan", "");
-
-                        String encode = "utf-8";
-                        int marker_id= HttpUtils.addflaginfo(params,encode);
                         Bundle mBundle = new Bundle();
-                        mBundle.putString("user_id", 4+"");
-                        mBundle.putString("marker_id", marker_id+"");
                         mBundle.putBoolean("isfoot",false);
                         marker.setExtraInfo(mBundle);
                         flags.add(marker);
@@ -945,6 +829,9 @@ new Thread(new Runnable() {
 // 当不需要定位图层时关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
         mSuggestionSearch.destroy();
+        if (EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
     }
 
 
@@ -962,4 +849,5 @@ new Thread(new Runnable() {
             textView.setText("足迹数:"+getfootnum()+"    旗子数:"+getflagnum());
         }
     }
+
 }
