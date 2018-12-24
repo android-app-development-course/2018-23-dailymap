@@ -82,6 +82,10 @@ public interface ApiService
     @POST("updateDestinationInfo")
     Observable<RegisterResponseInfo> updateDestinationInfo(@Field("marker_id") String marker_id,@Field("latitude") String latitude,@Field("place_name") String place_name,@Field("longitude") String longitude,@Field("travel_plan") String travel_plan);
 
+    @FormUrlEncoded
+    @POST("updateFootsInfo")
+    Observable<RegisterResponseInfo> updateFootsInfo(@Field("marker_id") String marker_id,@Field("latitude") String latitude,@Field("place_name") String place_name,@Field("longitude") String longitude,@Field("travel_plan") String travel_plan);
+
 
     @FormUrlEncoded
     @POST("deleteDestinationInfo")

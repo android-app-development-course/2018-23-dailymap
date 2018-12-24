@@ -65,15 +65,6 @@ public class SendMessageManager
         httpChannel.sendMessage(observable, Constants.GET_REGISTER_STATUS_URL);
     }
 
-    /**
-     * 发送“获取新闻列表”的消息
-     */
-    public void getNews()
-    {
-        Observable<NewsResponseInfo> observable = apiService.getNews();
-        httpChannel.sendMessage(observable, Constants.GET_NEWS_URL);
-    }
-
     public void getDestinationInfoFromUserId(String user_id){
         Observable<DestinationResponseInfo> observable = apiService.getDestinationInfoFromUserId(user_id);
         httpChannel.sendMessage(observable, Constants.GETDESTINATIONFROMUSERID);
