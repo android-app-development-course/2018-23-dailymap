@@ -81,7 +81,16 @@ private String marker_id;
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendMessageManager.getInstance().insertFlagsInfo(Constants.USERID,latitude,longitude,"",travel_plan.getText().toString());
+                if (marker_id==null){
+                    SendMessageManager.getInstance().insertFlagsInfo(Constants.USER_INFO.getUser_id(),latitude,longitude,"",travel_plan.getText().toString());
+                    Toast.makeText(FlagsInfo.this, "添加旗子成功", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    SendMessageManager.getInstance().updateDestinationInfo(marker_id,latitude,longitude,"",travel_plan.getText().toString());
+                    Toast.makeText(FlagsInfo.this, "修改旗子信息成功", Toast.LENGTH_SHORT).show();
+                }
+                finish();
             }
         });
 
@@ -104,7 +113,9 @@ private String marker_id;
 
     public void deletemarker(View view) {
         if (marker_id!=null){
-            SendMessageManager.getInstance().deleteFootInfo(marker_id);
+            SendMessageManager.getInstance().deleteDestinationInfo(marker_id);
         }
+        Toast.makeText(this, "删除成功", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

@@ -84,7 +84,8 @@ public interface ApiService
 
     @FormUrlEncoded
     @POST("updateFootsInfo")
-    Observable<RegisterResponseInfo> updateFootsInfo(@Field("marker_id") String marker_id,@Field("latitude") String latitude,@Field("place_name") String place_name,@Field("longitude") String longitude,@Field("travel_plan") String travel_plan);
+    Observable<RegisterResponseInfo> updateFootsInfo(@Field("marker_id") String marker_id,@Field("latitude") String latitude,@Field("longitude") String longitude,@Field("place_name") String place_name,@Field("travel_plan") String travel_plan);
+
 
 
     @FormUrlEncoded
@@ -94,7 +95,7 @@ public interface ApiService
 
     @FormUrlEncoded
     @POST("deleteFootInfo")
-    Observable<BaseResponseInfo> deleteFootInfo(@Field("marker_id") String marker_id);
+    Observable<RegisterResponseInfo> deleteFootInfo(@Field("marker_id") String marker_id);
 
 
     @FormUrlEncoded
@@ -103,6 +104,6 @@ public interface ApiService
 
     @Multipart
     @POST("InsertPhotoPath")
-    Observable<BaseResponseInfo> upImg(@PartMap Map<String,String> params, @Part MultipartBody.Part file);
+    Observable<BaseResponseInfo> upImg(@Part MultipartBody.Part file,@PartMap Map<String,String> params );
 
 }

@@ -87,8 +87,18 @@ public class SendMessageManager
         Observable<RegisterResponseInfo> observable = apiService.insertFootInfo(user_id,latitude,longitude,place_name,thought);
         httpChannel.sendMessage(observable, Constants.INSERTFOOTINFO);
     }
+
+    public void updateFootsInfo(String marker_id,String latitude,String longitude,String place_name,String thought){
+        Observable<RegisterResponseInfo> observable = apiService.updateFootsInfo(marker_id,latitude,longitude,place_name,thought);
+        httpChannel.sendMessage(observable, Constants.GET_REGISTER_STATUS_URL);
+    }
+    public void updateDestinationInfo(String marker_id,String latitude,String longitude,String place_name,String travel_plan){
+        Observable<RegisterResponseInfo> observable = apiService.updateDestinationInfo(marker_id,latitude,longitude,place_name,travel_plan);
+        httpChannel.sendMessage(observable, Constants.GET_REGISTER_STATUS_URL);
+    }
+
     public void upImg(Map<String,String> params, MultipartBody.Part file){
-        Observable<BaseResponseInfo> observable = apiService.upImg(params,file);
+        Observable<BaseResponseInfo> observable = apiService.upImg(file,params);
         httpChannel.sendMessage(observable, Constants.INSERTPHPTOPATH);
     }
 
@@ -98,7 +108,7 @@ public class SendMessageManager
     }
 
     public void deleteFootInfo(String marker_id){
-        Observable<BaseResponseInfo> observable = apiService.deleteFootInfo(marker_id);
+        Observable<RegisterResponseInfo> observable = apiService.deleteFootInfo(marker_id);
         httpChannel.sendMessage(observable, Constants.INSERTFOOTINFO);
     }
 

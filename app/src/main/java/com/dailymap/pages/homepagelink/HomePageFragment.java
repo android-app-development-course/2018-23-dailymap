@@ -52,6 +52,8 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     private void initView(View view)
     {
         btn_map = (Button) view.findViewById(R.id.btn_map);
+        Button btn_myself = (Button) view.findViewById(R.id.btn_myself);
+        btn_myself.setOnClickListener(this);
         btn_story = (Button) view.findViewById(R.id.btn_story);
         btn_map.setOnClickListener(this);
         imageView=(ImageView)view.findViewById(R.id.imageView);
@@ -83,6 +85,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
                 startActivity(intent);
                 break;
             case R.id.imageView:
+            case R.id.btn_myself:
                 intent=new Intent(getContext(),Login_regis.class);
                 startActivity(intent);
                 break;

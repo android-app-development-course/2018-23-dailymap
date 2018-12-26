@@ -1,15 +1,8 @@
 package com.dailymap.view;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.support.v4.app.ActivityOptionsCompat;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,14 +15,11 @@ import com.dailymap.constant.Constants;
 import com.dailymap.model.network.LoginResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
 import com.dailymap.network.SendMessageManager;
-import com.dailymap.utils.HttpUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Login_regis extends AppCompatActivity {
     private EditText username;
@@ -100,20 +90,27 @@ public class Login_regis extends AppCompatActivity {
     public void Event(RegisterResponseInfo messageEvent) {
         //Toast.makeText(this, messageEvent.getError(), Toast.LENGTH_SHORT).show();
         if (messageEvent.getResult().equals("successful")){
-            Toast.makeText(this, "注册成功，欢迎！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "注册成功，请登录！", Toast.LENGTH_SHORT).show();
+            password_confirm.setVisibility(View.GONE);
+            number_text.setVisibility(View.GONE);
+            islogin=true;
+            confirm.setText("登录");
+            log_regi_trans.setText("没有账号？注册");
         }
-        Toast.makeText(this, "注册成功，欢迎！", Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(this, "注册成功，欢迎！", Toast.LENGTH_SHORT).show();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event1(LoginResponseInfo messageEvent) {
         //Toast.makeText(this, messageEvent.getError(), Toast.LENGTH_SHORT).show();
-        if (messageEvent.getResult().equals("请检查用户名或密码是否正确")){
+        if (messageEvent.getResult()==null){
             Toast.makeText(this,messageEvent.getResult().toString(), Toast.LENGTH_SHORT).show();
         }else {
             Constants.USERNAME=messageEvent.getResult().getName();
             Constants.USERID=messageEvent.getResult().getUser_id();
             Toast.makeText(this, "登录成功，欢迎！"+messageEvent.getResult().getName(), Toast.LENGTH_SHORT).show();
+            Constants.USER_INFO=messageEvent.getResult();
             this.finish();
         }
 

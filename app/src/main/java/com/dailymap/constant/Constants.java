@@ -1,5 +1,7 @@
 package com.dailymap.constant;
 
+import com.dailymap.model.network.UserInfo;
+
 /**
  * Created by WuchangI on 2018/11/4.
  */
@@ -24,5 +26,6 @@ public class Constants
     public static final String UPDATEDESTINATIONINFO = "updateDestinationInfo";
     public static final String INSERTPHPTOPATH = "InsertPhotoPath";
 
+    public static UserInfo USER_INFO=null;
 
 }

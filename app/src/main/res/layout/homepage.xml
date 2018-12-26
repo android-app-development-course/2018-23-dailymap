@@ -109,7 +109,7 @@
                 android:background="@drawable/lightshape"
                 android:text="个人信息"
                 android:textColor="#68aecf"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
         <TextView
             android:layout_width="match_parent"

@@ -27,12 +27,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.dailymap.R;
 import com.dailymap.constant.Constants;
+import com.dailymap.model.network.LoginResponseInfo;
+import com.dailymap.model.network.RegisterResponseInfo;
 import com.dailymap.network.SendMessageManager;
 import com.dailymap.utils.HttpUtils;
 import com.dailymap.utils.UploadUtil;
 import com.baidu.mapapi.model.LatLng;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -183,7 +187,15 @@ public class FootsInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 addfootinfo();
+                if (marker_id!=null)
                 uploadImage(img_src);
+                else {
+                    /*while (marker_id==null){
+
+                    }
+                    uploadImage(img_src);*/
+                }
+                finish();
             }
         });
 
@@ -266,13 +278,28 @@ public class FootsInfo extends AppCompatActivity {
 
 
     private void addfootinfo() {
-        if (marker_id==null)
-        SendMessageManager.getInstance().insertFootInfo(Constants.USERID,latitude,longitude,"",tra_thought.getText().toString());
+        if (marker_id==null){
+            SendMessageManager.getInstance().insertFootInfo(Constants.USER_INFO.getUser_id(),latitude,longitude,"",tra_thought.getText().toString());
+            Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
+        }
         else
-            SendMessageManager.getInstance().insertFootInfo(Constants.USERID,latitude,longitude,"",tra_thought.getText().toString());
-
+        {
+            SendMessageManager.getInstance().updateFootsInfo(marker_id,latitude,longitude,"",tra_thought.getText().toString());
+            Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event1(RegisterResponseInfo messageEvent) {
+        if (marker_id!=null)return;
+        //Toast.makeText(this, messageEvent.getError(), Toast.LENGTH_SHORT).show();
+        if (messageEvent.getResult()==null){
+            Toast.makeText(this,"网络出现错误", Toast.LENGTH_SHORT).show();
+        }else {
+            marker_id=messageEvent.getResult();
+            this.finish();
+        }
+    }
 
     /**
 
@@ -280,6 +307,7 @@ public class FootsInfo extends AppCompatActivity {
 
      */
  public void uploadImage(LinkedList<String> imgpaths) {
+
 
      for (int i=0;i<imgpaths.size();i++){
          File file = new File(imgpaths.get(i));
@@ -500,5 +528,8 @@ public class FootsInfo extends AppCompatActivity {
         if (marker_id!=null){
             SendMessageManager.getInstance().deleteFootInfo(marker_id);
         }
+
+        finish();
     }
+
 }

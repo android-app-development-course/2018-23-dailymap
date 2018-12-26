@@ -26,6 +26,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.Polyline;
 import com.baidu.mapapi.map.PolylineOptions;
 import com.dailymap.R;
+import com.dailymap.constant.Constants;
 import com.dailymap.model.FootMarker;
 import com.dailymap.model.network.Destination;
 import com.dailymap.model.network.DestinationResponseInfo;
@@ -442,8 +443,14 @@ public class DailyMap extends AppCompatActivity {
 
         foots.clear();
         flags.clear();
-        SendMessageManager.getInstance().getDestinationInfoFromUserId("4");
-        SendMessageManager.getInstance().getFootInfoFromUserId("4");
+        if (Constants.USER_INFO==null)
+        {
+            Toast.makeText(this, "您还没有登录哟~", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String user_id=Constants.USER_INFO.getUser_id();
+        SendMessageManager.getInstance().getDestinationInfoFromUserId(user_id);
+        SendMessageManager.getInstance().getFootInfoFromUserId(user_id);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -815,11 +822,12 @@ public class DailyMap extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==FOOTINFO){
-            Toast.makeText(this, "添加足迹信息成功", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "添加足迹信息成功", Toast.LENGTH_SHORT).show();
         }
         else {
-            Toast.makeText(this, "添加旗子信息成功", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "添加旗子信息成功", Toast.LENGTH_SHORT).show();
         }
+        onResume();
     }
 
     @Override
