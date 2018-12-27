@@ -22,6 +22,7 @@ import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.LoginResponseInfo;
 import com.dailymap.model.network.MarkidImageInfo;
 import com.dailymap.network.SendMessageManager;
+import com.dailymap.view.Album;
 import com.dailymap.view.StoryPlay;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,7 +32,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Story extends AppCompatActivity {
+public class Story extends AppCompatActivity implements View.OnClickListener{
 
     private LinearLayout ll;
     private List<MarkidImageInfo> markidImageInfos=new LinkedList<>();
@@ -51,6 +52,23 @@ public class Story extends AppCompatActivity {
     }
 
     @Override
+    public void onClick(View view) {
+        int no=view.getId();
+        LinkedList<String> filenames=new LinkedList<>();
+        String[] strings=new String[10];
+        int size=markidImageInfos.get(no).getResult().size();
+        for (int i=0;i<size;i++){
+            //filenames.add(markidImageInfos.get(no).getResult().get(i).getFilename());
+            strings[i]= markidImageInfos.get(no).getResult().get(i).getFilename();
+        }
+
+        Intent intent=new Intent(Story.this, Album.class);
+        intent.putExtra("filenames",strings);
+        intent.putExtra("size",size);
+        startActivityForResult(intent,111);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         if (EventBus.getDefault().isRegistered(this))
@@ -64,6 +82,8 @@ public class Story extends AppCompatActivity {
         ImageView imageView=(ImageView)view.findViewById(R.id.friend_image0);
         Glide.with(this).load(Constants.BASE_REQUEST_URL+"readImage?filename="+messageEvent.getResult().get(0).getFilename()).into(imageView);
           //imageView.setImageBitmap(SendMessageManager.getInstance().readImage(markidImageInfos.get(0).getResult().get(0).getFilename()));
+        view.setId(viewnum);
+        view.setOnClickListener(this);
         LinearLayout.LayoutParams lpleft = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         switch (viewnum%2){

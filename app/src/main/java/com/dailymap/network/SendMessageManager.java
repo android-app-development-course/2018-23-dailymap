@@ -112,7 +112,7 @@ public class SendMessageManager
     }
 
     public void upImg(Map<String,String> params, MultipartBody.Part file){
-        Observable<BaseResponseInfo> observable = apiService.upImg(file,params);
+        Observable<BaseResponseInfo> observable = apiService.upImg(params,file);
         httpChannel.sendMessage(observable, Constants.INSERTPHPTOPATH);
     }
 

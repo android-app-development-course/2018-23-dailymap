@@ -13,8 +13,9 @@
         android:visibility="gone"
         android:id="@+id/tra_info_play"/>
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/displayphotos"/>
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/displayphotos"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

@@ -107,7 +107,7 @@ public class FootsInfo extends AppCompatActivity {
         super.onResume();
         if(!TextUtils.isEmpty(pathImage)){
             Bitmap addbmp=BitmapFactory.decodeFile(pathImage);
-            //Bitmap addbmp=convertToBitmap(pathImage,80,80);
+            //Bitmap addbmp=convertToBitmap(pathImage,30,30);
             //addbmp=BitmapFactory.decodeResource(getResources(),R.drawable.addpicture);
            // Bitmap addbmp = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(pathImage), 90, 90, true);
             HashMap<String, Object> map = new HashMap<String, Object>();

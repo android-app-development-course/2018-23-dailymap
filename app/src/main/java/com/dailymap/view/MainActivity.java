@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initviewpager() {
         mFragments = new ArrayList<>();
-        mFragments.add(new HomePageFragment());
+        mFragments.add(new HomePageFragment(viewPager));
         mFragments.add(new SharePageFragment());
         mFragments.add(new TravelNoteFragment());
         mFragments.add(new MineFragment());

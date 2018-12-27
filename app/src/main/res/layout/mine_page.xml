@@ -38,6 +38,7 @@
                     app:srcCompat="@mipmap/head"
                     android:scaleType="fitXY"
                     app:type="circle"
+                    android:layout_gravity="center"
                     android:src="@drawable/user_phpto" />
 
                 <!--用户昵称-->
