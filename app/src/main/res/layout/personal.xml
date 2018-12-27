@@ -14,15 +14,16 @@
         android:layout_height="70dp"
         android:orientation="horizontal"
         android:background="@color/colorWhite">
+
         <com.dailymap.definedview.RoundImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@drawable/user_phpto"
+            android:layout_gravity="center"
+            android:layout_marginLeft="160dp"
             android:layout_weight="1"
             android:scaleType="fitXY"
-            app:type="circle"
-            android:layout_gravity="center"
-            android:layout_marginLeft="160dp"/>
+            android:src="@drawable/user_phpto"
+            app:type="circle" />
 
     </LinearLayout>
     <TextView
@@ -38,13 +39,25 @@
             android:layout_height="30dp"
             android:src="@drawable/earth"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="用户名"
             android:textColor="@color/colorBlack"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/per_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:textColor="@color/colorBlack"
+            android:text="李华    "
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            />
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -59,13 +72,25 @@
             android:layout_height="30dp"
             android:src="@drawable/earth"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="个人介绍"
             android:textColor="@color/colorBlack"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/per_intruduction"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="面朝大海,春暖花开  "
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -80,13 +105,25 @@
             android:layout_height="30dp"
             android:src="@drawable/earth"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="地区"
             android:textColor="@color/colorBlack"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/per_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="中国  "
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
@@ -101,32 +138,24 @@
             android:layout_height="30dp"
             android:src="@drawable/earth"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="性别"
             android:textColor="@color/colorBlack"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"/>
-    </LinearLayout><TextView
-    android:layout_width="match_parent"
-    android:layout_height="20dp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal"
-        android:background="@color/colorWhite">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/earth"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/per_sex"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="生日"
+            android:layout_weight="1"
+            android:text="男  "
             android:textColor="@color/colorBlack"
             android:textSize="16dp"
-            android:layout_gravity="center"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
             android:layout_marginLeft="10dp"/>
     </LinearLayout><TextView
     android:layout_width="match_parent"
@@ -141,12 +170,56 @@
             android:layout_height="30dp"
             android:src="@drawable/earth"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="生日"
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/per_birth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="2000年1月1日  "
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout><TextView
+    android:layout_width="match_parent"
+    android:layout_height="20dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="@color/colorWhite">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/earth"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="邮箱"
             android:textColor="@color/colorBlack"
             android:textSize="16dp"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/per_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="123456@163.com  "
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
     <TextView
@@ -162,16 +235,36 @@
             android:layout_height="30dp"
             android:src="@drawable/earth"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="手机号"
             android:textColor="@color/colorBlack"
             android:textSize="16dp"
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"/>
-
-
-
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="123456  "
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp"
+            android:textAlignment="textEnd"
+            android:layout_gravity="end"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="修        改"
+        android:textSize="25dp"
+        android:id="@+id/btn_per_edit"
+        android:textColor="#dbedf5"
+        android:background="@drawable/bt_style_regi"/>
 </LinearLayout>
