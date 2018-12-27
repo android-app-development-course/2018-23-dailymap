@@ -1,17 +1,31 @@
 package com.dailymap.network;
 
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.dailymap.constant.Constants;
 import com.dailymap.model.network.BaseResponseInfo;
 import com.dailymap.model.network.DestinationResponseInfo;
 import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.LoginResponseInfo;
+import com.dailymap.model.network.MarkidImageInfo;
 import com.dailymap.model.network.NewsResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
 
+import org.reactivestreams.Subscriber;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
@@ -73,9 +87,9 @@ public class SendMessageManager
         Observable<FootsResponseInfo> observable = apiService.getFootInfoFromUserId(user_id);
         httpChannel.sendMessage(observable, Constants.GETFOOTSINFOFROMUSERID);
     }
-    public void getDestinationInfoFromMarkerId(String marker_id){
-        Observable<DestinationResponseInfo> observable = apiService.getDestinationInfoFromMarkerId(marker_id);
-        httpChannel.sendMessage(observable, Constants.GET_NEWS_URL);
+    public void getImagename(String marker_id){
+        Observable<MarkidImageInfo> observable = apiService.getImagename(marker_id);
+        httpChannel.sendMessage(observable, Constants.GETIMAGENAME);
     }
 
     public void insertFlagsInfo(String user_id,String latitude,String longitude,String place_name,String travel_plan){
@@ -100,6 +114,29 @@ public class SendMessageManager
     public void upImg(Map<String,String> params, MultipartBody.Part file){
         Observable<BaseResponseInfo> observable = apiService.upImg(file,params);
         httpChannel.sendMessage(observable, Constants.INSERTPHPTOPATH);
+    }
+
+    public Bitmap readImage(String filename){
+        //Observable<ResponseBody> observable = apiService.readImage(filename);
+String dirurl=Constants.BASE_REQUEST_URL+"readImage/?filename="+filename;
+return getimage(dirurl);
+    }
+
+    private Bitmap getimage(String dirurl) {
+        Bitmap bitmap = null;
+        try {
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            byte[] data = new byte[1024];
+            int len = 0;
+            URL url = new URL(dirurl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            InputStream inStream = conn.getInputStream();
+            bitmap=BitmapFactory.decodeStream(inStream);
+
+        }catch (Exception e){
+
+        }
+        return bitmap;
     }
 
     public void deleteDestinationInfo(String marker_id){

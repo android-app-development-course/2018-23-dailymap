@@ -455,6 +455,7 @@ public class DailyMap extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(DestinationResponseInfo messageEvent) {
+        Constants.destinationResponseInfo=messageEvent;
         List<Destination> destinations=messageEvent.getResult();
         for (int i=0;i<destinations.size();i++){
             Bundle mBundle = new Bundle();
@@ -484,6 +485,7 @@ public class DailyMap extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event1(FootsResponseInfo messageEvent) {
+        Constants.footsResponseInfo=messageEvent;
         List<com.dailymap.model.network.FootsInfo> footsInfos=messageEvent.getResult();
         for (int i=0;i<footsInfos.size();i++){
             Bundle mBundle = new Bundle();

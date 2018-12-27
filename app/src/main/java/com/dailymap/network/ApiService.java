@@ -5,6 +5,7 @@ import com.dailymap.model.network.Destination;
 import com.dailymap.model.network.DestinationResponseInfo;
 import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.LoginResponseInfo;
+import com.dailymap.model.network.MarkidImageInfo;
 import com.dailymap.model.network.NewsResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
 
@@ -102,8 +103,18 @@ public interface ApiService
     @POST("getFootInfoFromMarkerId")
     Observable<FootsResponseInfo> getFootInfoFromMarkerId(@Field("marker_id") String marker_id);
 
+    @FormUrlEncoded
+    @POST("getImagename")
+    Observable<MarkidImageInfo> getImagename(@Field("marker_id") String marker_id);
+
     @Multipart
     @POST("InsertPhotoPath")
     Observable<BaseResponseInfo> upImg(@Part MultipartBody.Part file,@PartMap Map<String,String> params );
+
+
+    @FormUrlEncoded
+    @POST("readImage")
+    Observable<ResponseBody> readImage(@Field("filename") String filename);
+
 
 }

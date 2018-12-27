@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.FootsInfo"
-    android:background="@drawable/footinfoback">
+    tools:context=".view.FootsInfo">
 
     <!-- 顶部添加文字 -->
     <RelativeLayout
@@ -108,8 +107,8 @@
                 android:background="#80FFFFFF"
                 android:horizontalSpacing="5dp"
                 android:verticalSpacing="5dp"
-                android:numColumns="4"
-                android:columnWidth="90dp"
+                android:numColumns="auto_fit"
+                android:columnWidth="80dp"
                 android:stretchMode="columnWidth"
                 android:gravity="center">
             </GridView>
@@ -120,5 +119,4 @@
                 android:gravity="center" />
         </LinearLayout>
     </RelativeLayout>
-
 </RelativeLayout>

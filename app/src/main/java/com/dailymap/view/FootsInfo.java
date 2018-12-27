@@ -39,6 +39,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -64,7 +65,7 @@ public class FootsInfo extends AppCompatActivity {
     private GridView gridView1;              //网格显示缩略图
     private Button buttonPublish;            //发布按钮
     private final int IMAGE_OPEN = 1;      //打开图片标记
-    private String pathImage;                //选择图片路径
+    private String pathImage=null;                //选择图片路径
     private Bitmap bmp;                      //导入临时图片
     private ArrayList<HashMap<String, Object>> imageItem;
     private SimpleAdapter simpleAdapter;     //适配器
@@ -77,7 +78,7 @@ public class FootsInfo extends AppCompatActivity {
         //打开图片
         if(resultCode==RESULT_OK && requestCode==IMAGE_OPEN) {
             Uri uri = data.getData();
-            img_src.add(getRealPathFromUri(FootsInfo.this,uri));
+            //img_src.add(getRealPathFromUri(FootsInfo.this,uri));
             if (!TextUtils.isEmpty(uri.getAuthority())) {
                 //查询选择图片
                 Cursor cursor = getContentResolver().query(
@@ -88,12 +89,14 @@ public class FootsInfo extends AppCompatActivity {
                         null);
                 //返回 没找到选择图片
                 if (null == cursor) {
+                    Toast.makeText(this, "没找到图片", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 //光标移动至开头 获取图片路径
                 cursor.moveToFirst();
                 pathImage = cursor.getString(cursor
                         .getColumnIndex(MediaStore.Images.Media.DATA));
+                img_src.add(pathImage);
             }
         }  //end if 打开图片
     }
@@ -104,12 +107,15 @@ public class FootsInfo extends AppCompatActivity {
         super.onResume();
         if(!TextUtils.isEmpty(pathImage)){
             Bitmap addbmp=BitmapFactory.decodeFile(pathImage);
+            //Bitmap addbmp=convertToBitmap(pathImage,80,80);
+            //addbmp=BitmapFactory.decodeResource(getResources(),R.drawable.addpicture);
+           // Bitmap addbmp = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(pathImage), 90, 90, true);
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("itemImage", addbmp);
             imageItem.add(map);
             simpleAdapter = new SimpleAdapter(this,
                     imageItem, R.layout.griditem_addpic,
-                    new String[] { "itemImage"}, new int[] { R.id.imageView1});
+                    new String[] {"itemImage"}, new int[] { R.id.imageView1});
             simpleAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
                 @Override
                 public boolean setViewValue(View view, Object data,
@@ -130,6 +136,29 @@ public class FootsInfo extends AppCompatActivity {
         }
     }
 
+    public Bitmap convertToBitmap(String path, int w, int h) {
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    // 设置为ture只获取图片大小
+                    opts.inJustDecodeBounds = true;
+                    opts.inPreferredConfig = Bitmap.Config.ARGB_8888;
+                    // 返回为空
+                  BitmapFactory.decodeFile(path, opts);
+                  int width = opts.outWidth;
+                     int height = opts.outHeight;
+                    float scaleWidth = 0.f, scaleHeight = 0.f;
+                   if (width > w || height > h) {
+                            // 缩放
+                            scaleWidth = ((float) width) / w;
+                             scaleHeight = ((float) height) / h;
+                       }
+                   opts.inJustDecodeBounds = false;
+                    float scale = Math.max(scaleWidth, scaleHeight);
+                    opts.inSampleSize = (int)scale;
+                   WeakReference<Bitmap> weak = new WeakReference<Bitmap>(BitmapFactory.decodeFile(path, opts));
+                  return Bitmap.createScaledBitmap(weak.get(), w, h, true);
+              }
+
+
     /*
      * Dialog对话框提示用户删除操作
      * position为删除图片位置
@@ -143,7 +172,7 @@ public class FootsInfo extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 imageItem.remove(position);
-                img_src.remove(position);
+                img_src.remove(position-1);
                 simpleAdapter.notifyDataSetChanged();
             }
         });
@@ -210,6 +239,11 @@ public class FootsInfo extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         //获取控件对象
         gridView1 = (GridView) findViewById(R.id.gridView1);
+
+        gridView1init();
+    }
+
+    private void gridView1init() {
 
         /*
          * 载入默认图片添加图片加号
@@ -318,6 +352,7 @@ public class FootsInfo extends AppCompatActivity {
          params.put("marker_id",marker_id);
          SendMessageManager.getInstance().upImg(params,body);
      }
+
     }
 
     @Override

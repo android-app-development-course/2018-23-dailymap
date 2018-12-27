@@ -5,6 +5,7 @@ import com.dailymap.model.network.BaseResponseInfo;
 import com.dailymap.model.network.DestinationResponseInfo;
 import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.LoginResponseInfo;
+import com.dailymap.model.network.MarkidImageInfo;
 import com.dailymap.model.network.NewsResponseInfo;
 import com.dailymap.model.network.RegisterResponseInfo;
 
@@ -44,7 +45,12 @@ public class ReceiveMessageManager
                 EventBus.getDefault().post(loginResponseInfo);
 
                 break;
+            case "getImagename":
 
+                MarkidImageInfo markidImageInfo = (MarkidImageInfo) baseResponseInfo;
+                EventBus.getDefault().post(markidImageInfo);
+
+                break;
 
             case "RegisterUser":
 

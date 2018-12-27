@@ -1,5 +1,7 @@
 package com.dailymap.constant;
 
+import com.dailymap.model.network.DestinationResponseInfo;
+import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.UserInfo;
 
 /**
@@ -25,7 +27,10 @@ public class Constants
     public static final String DELETEFOOTINFO = "deleteFootInfo";
     public static final String UPDATEDESTINATIONINFO = "updateDestinationInfo";
     public static final String INSERTPHPTOPATH = "InsertPhotoPath";
+    public static final String READIMAGE = "readImage";
+    public static final String GETIMAGENAME = "getImagename";
 
     public static UserInfo USER_INFO=null;
-
+    public static DestinationResponseInfo destinationResponseInfo=null;
+    public static FootsResponseInfo footsResponseInfo=null;
 }

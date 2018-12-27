@@ -11,12 +11,10 @@
         android:layout_height="80dp"
         android:orientation="vertical" >
         <ImageView
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
             android:id="@+id/imageView1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:scaleType="fitXY"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/more" />
     </RelativeLayout>
 </LinearLayout>
