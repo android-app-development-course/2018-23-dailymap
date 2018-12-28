@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cost">
+        <item>经费</item>
+        <item>1000以内</item>
+        <item>1000~2000</item>
+        <item>3000~5000></item>
+        <item>5000~10000</item>
+        <item>10000以上</item>
+    </string-array>
+
+    <string-array name="age">
+        <item>年龄</item>
+        <item>6岁以下</item>
+        <item>6~12岁</item>
+        <item>12~18岁</item>
+        <item>18~30岁</item>
+        <item>30~50岁</item>
+        <item>50岁以上</item>
+    </string-array>
+
+    <string-array name="num">
+        <item>人数</item>
+        <item>单人</item>
+        <item>双人</item>
+        <item>3~10人</item>
+        <item>10人以上</item>
+    </string-array>
+</resources>
