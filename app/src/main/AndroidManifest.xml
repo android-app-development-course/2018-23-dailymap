@@ -59,7 +59,8 @@
         <activity android:name=".view.MinePage" />
         <activity android:name=".pages.homepagelink.Story" />
         <activity android:name=".view.StoryPlay" />
-        <activity android:name=".view.analyze"></activity>
+        <activity android:name=".view.analyze" />
+        <activity android:name=".view.Path"></activity>
     </application>
 
 </manifest>
