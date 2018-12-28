@@ -15,6 +15,7 @@
         android:layout_alignParentRight="true"
         android:paddingRight="10dp"
         android:id="@+id/arcamera"/>
+
    <LinearLayout
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
@@ -34,6 +35,7 @@
        <TextView
            android:layout_width="50dp"
            android:layout_height="50dp"
+           android:layout_gravity="center"
            android:text="昵称"/>
    </LinearLayout>
 
@@ -43,7 +45,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_toLeftOf="@+id/imageView"
-        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="80dp"
         android:gravity="center_horizontal"
         android:layout_marginTop="30dp">
         <TextView
@@ -62,7 +64,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_toRightOf="@+id/imageView"
-        android:layout_alignParentRight="true"
+       android:layout_marginLeft="270dp"
         android:gravity="center_horizontal"
         android:layout_marginTop="30dp"
         >
@@ -78,16 +80,21 @@
             android:text="关注"/>
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="130dp"
-            android:orientation="horizontal"
             android:layout_above="@id/funtion"
+            android:layout_marginTop="135dp"
+            android:orientation="horizontal"
 
             >
 
@@ -99,7 +106,7 @@
                 android:background="@drawable/darkshape"
                 android:text="回忆录"
                 android:textColor="#f3fafa"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_myself"
@@ -111,77 +118,84 @@
                 android:textColor="#68aecf"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
+
         <LinearLayout
+            android:id="@+id/funtion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="30dp"
-            android:id="@+id/funtion">
+            android:orientation="vertical">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/btn_story"
                     android:layout_width="160dp"
                     android:layout_height="120dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/lightshape"
                     android:text="故事"
                     android:textColor="#68aecf"
                     android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"/>
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/btn_map"
                     android:layout_width="160dp"
                     android:layout_height="120dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/darkshape"
                     android:text="地图"
                     android:textColor="#f3fafa"
                     android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_marginRight="10dp"/>
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/btn_recommand"
                     android:layout_width="160dp"
                     android:layout_height="120dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/darkshape"
                     android:text="路线推荐"
                     android:textColor="#f3fafa"
                     android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"/>
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/btn_analysis"
                     android:layout_width="160dp"
                     android:layout_height="120dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/lightshape"
                     android:text="旅行分析"
                     android:textColor="#68aecf"
                     android:textSize="30dp"
-                    android:textStyle="bold"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="1"
-                    />
+                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
