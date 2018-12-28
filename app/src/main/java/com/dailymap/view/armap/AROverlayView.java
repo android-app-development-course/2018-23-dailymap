@@ -1,4 +1,4 @@
-package com.dailymap.view;
+package com.dailymap.view.armap;
 
 import android.content.Context;
 import android.graphics.Canvas;

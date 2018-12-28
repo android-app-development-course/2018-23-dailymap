@@ -109,7 +109,7 @@ public interface ApiService
 
     @Multipart
     @POST("InsertPhotoPath")
-    Observable<BaseResponseInfo> upImg(@PartMap Map<String,String> params ,@Part MultipartBody.Part file);
+    Observable<BaseResponseInfo> upImg(@Part MultipartBody.Part file,@PartMap Map<String,String> marker_id);
 
 
     @FormUrlEncoded

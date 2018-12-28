@@ -1,4 +1,4 @@
-package com.dailymap.view;
+package com.dailymap.view.armap;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

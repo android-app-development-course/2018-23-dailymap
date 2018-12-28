@@ -16,6 +16,14 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:id="@+id/displayphotos"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+    <ViewFlipper
+        android:id="@+id/images"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        ></ViewFlipper>
 
 </FrameLayout>

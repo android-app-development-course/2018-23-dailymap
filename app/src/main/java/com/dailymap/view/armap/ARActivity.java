@@ -1,4 +1,4 @@
-package com.dailymap.view;
+package com.dailymap.view.armap;
 
 import android.Manifest;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.opengl.Matrix;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +47,7 @@ import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.dailymap.pages.homepagelink.DailyMap;
+import com.dailymap.listener.Mylocationlistener;
 
 
 import java.util.ArrayList;
@@ -88,8 +91,9 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     boolean isNetworkEnabled;
     boolean locationServiceAvailable;
     private int LOGIN_REGISTER=1;
-    public LocationClient mLocationClient = null;
-    public Mylocationlistener myListener=new Mylocationlistener();
+    public LocationClient mLocationClient=null;
+    private Handler handler;
+    public Mylocationlistener myListener = new Mylocationlistener();
 
     public ImageView back;
     public ImageView changemap;

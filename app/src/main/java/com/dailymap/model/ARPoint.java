@@ -2,7 +2,7 @@ package com.dailymap.model;
 
 import android.location.Location;
 
-import com.dailymap.view.ARActivity;
+import com.dailymap.view.armap.ARActivity;
 
 /**
  * Created by ntdat on 1/16/17.

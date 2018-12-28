@@ -1,5 +1,6 @@
 package com.dailymap.view;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -11,10 +12,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -39,6 +41,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,12 +75,24 @@ public class FootsInfo extends AppCompatActivity {
     private Button save;
     private String thought;
     private Button cancel;
+    private Bitmap addbmp;
+    private EditText place_name;
     //获取图片路径 响应startActivityForResult
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //打开图片
         if(resultCode==RESULT_OK && requestCode==IMAGE_OPEN) {
             Uri uri = data.getData();
+
+            String img_url = uri.getPath();//这是本机的图片路径
+            ContentResolver cr = this.getContentResolver();
+            try {
+                addbmp = BitmapFactory.decodeStream(cr.openInputStream(uri));
+
+            } catch (FileNotFoundException e) {
+                Log.e("Exception", e.getMessage(),e);
+            }
+
             //img_src.add(getRealPathFromUri(FootsInfo.this,uri));
             if (!TextUtils.isEmpty(uri.getAuthority())) {
                 //查询选择图片
@@ -106,7 +121,8 @@ public class FootsInfo extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if(!TextUtils.isEmpty(pathImage)){
-            Bitmap addbmp=BitmapFactory.decodeFile(pathImage);
+           // Bitmap addbmp=BitmapFactory.decodeFile(pathImage);
+
             //Bitmap addbmp=convertToBitmap(pathImage,30,30);
             //addbmp=BitmapFactory.decodeResource(getResources(),R.drawable.addpicture);
            // Bitmap addbmp = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(pathImage), 90, 90, true);
@@ -196,7 +212,7 @@ public class FootsInfo extends AppCompatActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
-
+        Toast.makeText(this, "在此添加修改您的足迹信息", Toast.LENGTH_SHORT).show();
         EventBus.getDefault().register(this);
         latitude=this.getIntent().getStringExtra("latitude");
         longitude=this.getIntent().getStringExtra("longitude");
@@ -228,6 +244,7 @@ public class FootsInfo extends AppCompatActivity {
             }
         });
 
+        place_name=(EditText)findViewById(R.id.place_name);
         /*
          * 防止键盘挡住输入框
          * 不希望遮挡设置activity属性 android:windowSoftInputMode="adjustPan"
@@ -313,12 +330,12 @@ public class FootsInfo extends AppCompatActivity {
 
     private void addfootinfo() {
         if (marker_id==null){
-            SendMessageManager.getInstance().insertFootInfo(Constants.USER_INFO.getUser_id(),latitude,longitude,"",tra_thought.getText().toString());
+            SendMessageManager.getInstance().insertFootInfo(Constants.USER_INFO.getUser_id(),latitude,longitude,place_name.getText().toString(),tra_thought.getText().toString());
             Toast.makeText(this, "添加成功", Toast.LENGTH_SHORT).show();
         }
         else
         {
-            SendMessageManager.getInstance().updateFootsInfo(marker_id,latitude,longitude,"",tra_thought.getText().toString());
+            SendMessageManager.getInstance().updateFootsInfo(marker_id,latitude,longitude,place_name.getText().toString(),tra_thought.getText().toString());
             Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
         }
     }

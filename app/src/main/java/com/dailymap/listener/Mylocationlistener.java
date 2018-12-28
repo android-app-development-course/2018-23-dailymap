@@ -1,20 +1,22 @@
-package com.dailymap.view;
+package com.dailymap.listener;
 
-import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
+import com.dailymap.constant.Constants;
 import com.dailymap.pages.homepagelink.DailyMap;
+import com.dailymap.view.armap.ARActivity;
 
 import java.util.List;
 
-import static com.dailymap.view.ARActivity.TAG;
+
 
 //监听定位消息
 public class Mylocationlistener extends BDAbstractLocationListener {
+
 
     @Override
     public void onReceiveLocation(BDLocation location) {
@@ -23,6 +25,8 @@ public class Mylocationlistener extends BDAbstractLocationListener {
         //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
         DailyMap.location=location;
         ARActivity.bdLocation=location;
+        Constants.bdLocation=location;
+
         String addr = location.getAddrStr();    //获取详细地址信息
         String country = location.getCountry();    //获取国家
         String province = location.getProvince();    //获取省份
@@ -39,9 +43,10 @@ public class Mylocationlistener extends BDAbstractLocationListener {
         }
         //AROverlayView.arPoints.add(new ARPoint(Poiinfo, 3.1850, 101.6868, 0));
        String n= poiList.get(0).getId();
-//        ARActivity.tvCurrentLocation.setText(country+province+city+district+street+"\n"+Poiinfo+"\n");
+        if (ARActivity.tvCurrentLocation!=null)
+        ARActivity.tvCurrentLocation.setText(country+province+city+district+street+"\n"+Poiinfo+"\n");
 
-        Log.d(TAG, "得到的位置啊啊啊:"+addr+":"+country+province+city+district+street+location.getLatitude());
+       // Log.d(TAG, "得到的位置啊啊啊:"+addr+":"+country+province+city+district+street+location.getLatitude());
 
         PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption();
 

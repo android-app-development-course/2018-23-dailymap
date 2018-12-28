@@ -78,11 +78,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_alignParentBottom="true" >
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#075284"
-                android:text="地点详情"/>
+                android:text="地点名称"
+                android:id="@+id/place_name"
+                android:background="@drawable/textview_border"
+                />
             <!-- 设置运行多行 设置圆角图形 黑色字体-->
 
             <EditText

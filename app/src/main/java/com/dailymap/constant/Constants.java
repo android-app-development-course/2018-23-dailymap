@@ -1,5 +1,6 @@
 package com.dailymap.constant;
 
+import com.baidu.location.BDLocation;
 import com.dailymap.model.network.DestinationResponseInfo;
 import com.dailymap.model.network.FootsResponseInfo;
 import com.dailymap.model.network.UserInfo;
@@ -33,4 +34,5 @@ public class Constants
     public static UserInfo USER_INFO=null;
     public static DestinationResponseInfo destinationResponseInfo=null;
     public static FootsResponseInfo footsResponseInfo=null;
+    public static BDLocation bdLocation=null;
 }

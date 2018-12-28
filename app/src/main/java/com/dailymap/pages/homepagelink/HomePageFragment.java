@@ -7,9 +7,9 @@ package com.dailymap.pages.homepagelink;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+
 import android.support.v4.app.Fragment;
+
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +20,12 @@ import android.widget.TextView;
 
 import com.dailymap.R;
 import com.dailymap.constant.Constants;
-import com.dailymap.view.ARActivity;
+import com.dailymap.view.armap.ARActivity;
 import com.dailymap.view.Login_regis;
 
 import butterknife.BindView;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.annotations.Nullable;
 
 /**
  * “首页” 页面
@@ -39,6 +41,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     @BindView(R.id.btn_story)
     protected Button btn_story;
     private TextView user_name;
+    private Button btn_analysis;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
@@ -58,6 +61,14 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
 
     private void initView(View view)
     {
+        btn_analysis=(Button) view.findViewById(R.id.btn_analysis);
+        btn_analysis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), analyze.class);
+                startActivityForResult(intent,100);
+            }
+        });
         user_name=(TextView)view.findViewById(R.id.name);
         btn_map = (Button) view.findViewById(R.id.btn_map);
         Button btn_myself = (Button) view.findViewById(R.id.btn_myself);

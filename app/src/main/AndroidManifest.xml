@@ -37,7 +37,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="A8aKUXap2b6ELN7faYdlc4KkYAsqQwpp" />
 
-        <activity android:name=".view.ARActivity" />
+        <activity android:name=".view.armap.ARActivity" />
         <activity android:name=".view.Login_regis" />
 
         <service
@@ -60,6 +60,12 @@
         <activity android:name=".pages.homepagelink.Story" />
         <activity android:name=".view.StoryPlay" />
         <activity android:name=".view.Album"></activity>
+        <activity android:name=".pages.homepagelink.analyze"></activity>
+
+        <service
+            android:name=".services.MusicService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

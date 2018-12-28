@@ -48,6 +48,7 @@ private String marker_id;
  private Button cancel;
  private EditText travel_plan;
  private String travelplan;
+ private EditText place_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +58,11 @@ private String marker_id;
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
-
+        place_name=(EditText)findViewById(R.id.place_name);
+        Toast.makeText(this, "添加你的旅行计划", Toast.LENGTH_SHORT).show();
         EventBus.getDefault().register(this);
 
-        markid=(TextView) findViewById(R.id.markid);
+        //markid=(TextView) findViewById(R.id.markid);
 
         //markid.setText(this.getIntent().getStringExtra("markid"));
         marker_id=this.getIntent().getStringExtra("marker_id");
@@ -82,12 +84,12 @@ private String marker_id;
             @Override
             public void onClick(View v) {
                 if (marker_id==null){
-                    SendMessageManager.getInstance().insertFlagsInfo(Constants.USER_INFO.getUser_id(),latitude,longitude,"",travel_plan.getText().toString());
+                    SendMessageManager.getInstance().insertFlagsInfo(Constants.USER_INFO.getUser_id(),latitude,longitude,place_name.getText().toString(),travel_plan.getText().toString());
                     Toast.makeText(FlagsInfo.this, "添加旗子成功", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    SendMessageManager.getInstance().updateDestinationInfo(marker_id,latitude,longitude,"",travel_plan.getText().toString());
+                    SendMessageManager.getInstance().updateDestinationInfo(marker_id,latitude,longitude,place_name.getText().toString(),travel_plan.getText().toString());
                     Toast.makeText(FlagsInfo.this, "修改旗子信息成功", Toast.LENGTH_SHORT).show();
                 }
                 finish();

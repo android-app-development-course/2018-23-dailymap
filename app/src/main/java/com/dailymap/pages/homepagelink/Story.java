@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -38,10 +39,20 @@ public class Story extends AppCompatActivity implements View.OnClickListener{
     private List<MarkidImageInfo> markidImageInfos=new LinkedList<>();
     private List<FootsInfo> footsResponseInfos;
     private int viewnum=0;
+    private LinkedList<String> dates=new LinkedList<>();
+    private LinkedList<String> citys=new LinkedList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
+
+        dates.add("2017/5/6");
+        dates.add("2018/4/3");
+        dates.add("2018/11/20");
+        citys.add("北京");
+        citys.add("上海");
+        citys.add("广州");
         EventBus.getDefault().register(this);
         //去除标题栏
         if (getSupportActionBar() != null){
@@ -82,6 +93,10 @@ public class Story extends AppCompatActivity implements View.OnClickListener{
         ImageView imageView=(ImageView)view.findViewById(R.id.friend_image0);
         Glide.with(this).load(Constants.BASE_REQUEST_URL+"readImage?filename="+messageEvent.getResult().get(0).getFilename()).into(imageView);
           //imageView.setImageBitmap(SendMessageManager.getInstance().readImage(markidImageInfos.get(0).getResult().get(0).getFilename()));
+        TextView date=(TextView)view.findViewById(R.id.date0);
+        TextView city=(TextView)view.findViewById(R.id.city);
+        date.setText(dates.get(viewnum));
+        city.setText(citys.get(viewnum));
         view.setId(viewnum);
         view.setOnClickListener(this);
         LinearLayout.LayoutParams lpleft = new LinearLayout.LayoutParams(
@@ -127,7 +142,7 @@ public class Story extends AppCompatActivity implements View.OnClickListener{
 
 
 
-        View view= LayoutInflater.from(this).inflate(R.layout.story_place_view,null);
+       /* View view= LayoutInflater.from(this).inflate(R.layout.story_place_view,null);
         LinearLayout.LayoutParams lpleft = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lpleft.gravity=Gravity.LEFT;
@@ -137,21 +152,8 @@ public class Story extends AppCompatActivity implements View.OnClickListener{
         LinearLayout.LayoutParams lpright = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lpright.gravity=Gravity.RIGHT;
-        ll.addView(view,lpright);
+        ll.addView(view,lpright);*/
 
-        view= LayoutInflater.from(this).inflate(R.layout.story_place_view,null);
-
-        ll.addView(view,lpleft);
-
-        view= LayoutInflater.from(this).inflate(R.layout.story_place_view,null);
-        ll.addView(view,lpright);
-
-        view= LayoutInflater.from(this).inflate(R.layout.story_place_view,null);
-
-        ll.addView(view,lpleft);
-
-        view= LayoutInflater.from(this).inflate(R.layout.story_place_view,null);
-        ll.addView(view,lpright);
     }
 
     public void playstory(View view) {

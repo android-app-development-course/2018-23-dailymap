@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -112,7 +113,9 @@ public class SendMessageManager
     }
 
     public void upImg(Map<String,String> params, MultipartBody.Part file){
-        Observable<BaseResponseInfo> observable = apiService.upImg(params,file);
+        Map<String,MultipartBody.Part> map=new HashMap<>();
+        map.put("file",file);
+        Observable<BaseResponseInfo> observable = apiService.upImg(file,params);
         httpChannel.sendMessage(observable, Constants.INSERTPHPTOPATH);
     }
 
