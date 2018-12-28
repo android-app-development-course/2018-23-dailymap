@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.analyze">
+    tools:context=".pages.homepagelink.analyze">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +25,7 @@
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/mBarChart"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="500dp"
             android:layout_weight="1"/>
 
         <LinearLayout
@@ -36,7 +36,7 @@
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:text="当旅行指数达到99时可获得旅行达人称号"
-                android:textSize="20dp"
+                android:textSize="11dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_marginLeft="83dp"
                 android:padding="15dp"/>

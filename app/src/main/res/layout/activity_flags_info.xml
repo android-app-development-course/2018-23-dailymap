@@ -79,7 +79,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="想去的地方是？"
+                android:hint="想去的地方是？"
                 android:textColor="#075284"
                 android:id="@+id/place_name"
                 android:background="@drawable/textview_border"

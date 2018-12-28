@@ -28,7 +28,7 @@ public class MineFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.mine_page, container, false);
+        View rootView = inflater.inflate(R.layout.personal, container, false);
         return rootView;
     }
 
@@ -37,8 +37,8 @@ public class MineFragment extends Fragment {
     {
         super.onViewCreated(view, savedInstanceState);
 
-        initView(view);
-        initView();
+       /* initView(view);
+        initView();*/
     }
 
     private void initView(View view) {

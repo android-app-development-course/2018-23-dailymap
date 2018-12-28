@@ -42,6 +42,7 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
     protected Button btn_story;
     private TextView user_name;
     private Button btn_analysis;
+    private Button btn_recommand;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
@@ -61,6 +62,15 @@ public class HomePageFragment extends Fragment implements View.OnClickListener{
 
     private void initView(View view)
     {
+
+        btn_recommand=(Button) view.findViewById(R.id.btn_recommand);
+        btn_recommand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), ReActivity.class);
+                startActivityForResult(intent,101);
+            }
+        });
         btn_analysis=(Button) view.findViewById(R.id.btn_analysis);
         btn_analysis.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -82,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#075284"
-                android:text="地点名称"
+                android:hint="地点名称"
                 android:id="@+id/place_name"
                 android:background="@drawable/textview_border"
                 />
