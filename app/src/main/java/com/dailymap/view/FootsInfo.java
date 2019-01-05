@@ -231,7 +231,7 @@ public class FootsInfo extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addfootinfo();
+                //addfootinfo();
                 if (marker_id!=null)
                 uploadImage(img_src);
                 else {
@@ -240,7 +240,8 @@ public class FootsInfo extends AppCompatActivity {
                     }
                     uploadImage(img_src);*/
                 }
-                finish();
+                uploadImage(img_src);
+               // finish();
             }
         });
 
@@ -358,16 +359,16 @@ public class FootsInfo extends AppCompatActivity {
 
      */
  public void uploadImage(LinkedList<String> imgpaths) {
-
-
+     Toast.makeText(this, ""+imgpaths.size(), Toast.LENGTH_SHORT).show();
      for (int i=0;i<imgpaths.size();i++){
          File file = new File(imgpaths.get(i));
-         String fileNameByTimeStamp ="";
-         RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), file);
-         MultipartBody.Part body = MultipartBody.Part.createFormData("app_user_header", fileNameByTimeStamp, requestFile);
+         String fileNameByTimeStamp =file.getName();
+         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+         MultipartBody.Part body = MultipartBody.Part.createFormData("file", fileNameByTimeStamp, requestFile);
          Map<String,String> params=new HashMap<>();
          params.put("marker_id",marker_id);
-         SendMessageManager.getInstance().upImg(params,body);
+
+   SendMessageManager.getInstance().upImg(params,body);
      }
 
     }

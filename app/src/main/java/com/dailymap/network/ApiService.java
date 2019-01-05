@@ -22,6 +22,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
+import retrofit2.http.Query;
 
 
 /**
@@ -109,7 +110,7 @@ public interface ApiService
 
     @Multipart
     @POST("InsertPhotoPath")
-    Observable<BaseResponseInfo> upImg(@Part MultipartBody.Part file,@PartMap Map<String,String> marker_id);
+    Observable<BaseResponseInfo> upImg(@Part MultipartBody.Part file,@Query("marker_id") String marker_id);
 
 
     @FormUrlEncoded

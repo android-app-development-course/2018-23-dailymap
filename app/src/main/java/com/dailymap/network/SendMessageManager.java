@@ -27,7 +27,9 @@ import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Field;
 import retrofit2.http.Part;
@@ -115,7 +117,7 @@ public class SendMessageManager
     public void upImg(Map<String,String> params, MultipartBody.Part file){
         Map<String,MultipartBody.Part> map=new HashMap<>();
         map.put("file",file);
-        Observable<BaseResponseInfo> observable = apiService.upImg(file,params);
+        Observable<BaseResponseInfo> observable = apiService.upImg(file,params.get("marker_id"));
         httpChannel.sendMessage(observable, Constants.INSERTPHPTOPATH);
     }
 

@@ -141,7 +141,7 @@ public class StoryPlay extends AppCompatActivity {
                 }, 3000);//3秒后执行Runnable中的run方法
             }
 
-        }, imagenum*3000);
+        }, imagenum*1000);
     }
 
     private MyConnection conn;
